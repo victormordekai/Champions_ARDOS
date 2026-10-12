@@ -216,93 +216,8 @@ h2 span {
     padding-block: 65px;
 }
 
-.system-art {
-    height: 410px;
-    position: relative;
-    display: grid;
-    place-items: center;
-    background: radial-gradient(
-        ellipse,
-        #12354188,
-        transparent 66%
-    );
-}
-
-.orbit {
-    position: absolute;
-    border: 1px solid #315560;
-    border-radius: 50%;
-    width: 320px;
-    height: 320px;
-    transform: rotate(-25deg) scaleY(.7);
-}
-
-.orbit-two {
-    transform: rotate(55deg) scaleY(.7);
-    border-color: #254454;
-}
-
-.core {
-    position: relative;
-    width: 228px;
-    height: 140px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #173244, #0b1827);
-    border: 1px solid #447b85;
-    box-shadow: 0 0 45px #51d9d914;
-    border-radius: 12px;
-    transform: rotate(-4deg);
-}
-
-.core span,
-.core small {
-    font-size: 9px;
-    letter-spacing: 2px;
-    color: var(--cyan);
-}
-
-.core strong {
-    font-size: 22px;
-    letter-spacing: 1px;
-    margin: 9px 0;
-}
-
-.satellite {
-    position: absolute;
-    font-size: 10px;
-    letter-spacing: 1.2px;
-    padding: 9px 14px;
-    background: #0c1d2c;
-    border: 1px solid #304c60;
-    border-radius: 5px;
-}
-
-.sat-one {
-    top: 70px;
-    left: 7%;
-}
-
-.sat-two {
-    top: 95px;
-    right: 0;
-    border-left: 2px solid var(--pink);
-}
-
-.sat-three {
-    bottom: 80px;
-    left: 23%;
-    border-left: 2px solid var(--cyan);
-}
-
-.art-caption {
-    position: absolute;
-    bottom: 10px;
-    letter-spacing: 2px;
-    font-size: 8px;
-    color: var(--muted);
+.hero > .champions-core-hud {
+    justify-self: end;
 }
 
 
@@ -793,10 +708,6 @@ form .button {
         font-size: 46px;
     }
 
-    .system-art {
-        transform: scale(.88);
-    }
-
     .module-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -854,39 +765,9 @@ form .button {
         font-size: 14px;
     }
 
-    .system-art {
-        height: 310px;
-        transform: none;
-        margin-top: 15px;
-    }
-
-    .orbit {
-        width: 260px;
-        height: 260px;
-    }
-
-    .sat-one {
-        top: 38px;
-        left: 0;
-    }
-
-    .sat-two {
-        top: 65px;
-        right: 0;
-    }
-
-    .sat-three {
-        bottom: 46px;
-        left: 15%;
-    }
-
-    .core {
-        width: 200px;
-        height: 115px;
-    }
-
-    .art-caption {
-        bottom: 0;
+    .hero > .champions-core-hud {
+        justify-self: center;
+        margin-top: 18px;
     }
 
     .access {
