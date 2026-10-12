@@ -83,7 +83,7 @@
 
 .hud-brand-image {
     max-width: min(280px, 100%);
-    max-height: 92px;
+    max-height: 126px;
     object-fit: contain;
     display: none;
 }
