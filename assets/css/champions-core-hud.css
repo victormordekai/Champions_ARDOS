@@ -1,13 +1,28 @@
-/* CHAMPIONS CORE HUD — componente institucional reutilizável */
+/* =========================================================
+   CHAMPIONS CORE HUD — CSS DEFINITIVO
+   Compatível com desktop/mobile e reutilizável por variante.
+   ========================================================= */
+
 .champions-core-hud {
     --hud-cyan: #65e3df;
     --hud-pink: #ec5799;
     --hud-ink: #f2f6fb;
     --hud-muted: #91a8bb;
     --hud-core: #07111e;
-    --hud-speed: 1;
-    --hud-glow: 1;
+
+    /* Durações diretas: evita divisão dentro de calc(). */
+    --hud-ring-speed: 89s;
+    --hud-ring-reverse-speed: 127s;
+    --hud-ring-inner-speed: 168s;
+    --hud-longitude-speed: 31s;
+    --hud-node-speed: 27s;
+    --hud-cyan-breathe-speed: 7.9s;
+    --hud-pink-breathe-speed: 10.7s;
+    --hud-sweep-speed: 8.8s;
+
+    --hud-glow: 1.15;
     --hud-size: min(100%, 500px);
+
     position: relative;
     width: var(--hud-size);
     aspect-ratio: 1;
@@ -16,15 +31,19 @@
     place-items: center;
     isolation: isolate;
     user-select: none;
+    contain: layout paint;
 }
 
-.champions-core-hud[hidden] { display: none !important; }
+.champions-core-hud[hidden] {
+    display: none !important;
+}
 
 .hud-stage {
     position: absolute;
     inset: 3%;
     display: grid;
     place-items: center;
+    pointer-events: none;
 }
 
 .hud-svg {
@@ -34,6 +53,11 @@
     filter: drop-shadow(0 0 18px rgb(101 227 223 / .08));
 }
 
+/*
+   IMPORTANTE:
+   view-box torna o centro de transformação previsível em SVG
+   tanto no desktop quanto no mobile.
+*/
 .hud-ring,
 .hud-ring-reverse,
 .hud-ring-inner,
@@ -41,24 +65,65 @@
 .hud-nodes,
 .hud-glow-cyan,
 .hud-glow-pink {
-    transform-origin: 50% 50%;
-    transform-box: fill-box;
+    transform-origin: center;
+    transform-box: view-box;
     will-change: transform, opacity;
 }
 
-.hud-ring { animation: hudRotate calc(96s / var(--hud-speed)) linear infinite; }
-.hud-ring-reverse { animation: hudRotateReverse calc(137s / var(--hud-speed)) linear infinite; }
-.hud-ring-inner { animation: hudRotate calc(181s / var(--hud-speed)) linear infinite; }
-.hud-longitudes { animation: hudLongitude calc(34s / var(--hud-speed)) ease-in-out infinite alternate; }
-.hud-nodes { animation: hudNodeDrift calc(29s / var(--hud-speed)) ease-in-out infinite alternate; }
-.hud-glow-cyan { animation: hudBreatheCyan 7.9s ease-in-out infinite; }
-.hud-glow-pink { animation: hudBreathePink 10.7s ease-in-out infinite -.9s; }
+.hud-ring {
+    animation-name: hudRotate;
+    animation-duration: var(--hud-ring-speed);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.hud-ring-reverse {
+    animation-name: hudRotateReverse;
+    animation-duration: var(--hud-ring-reverse-speed);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.hud-ring-inner {
+    animation-name: hudRotate;
+    animation-duration: var(--hud-ring-inner-speed);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.hud-longitudes {
+    animation-name: hudLongitude;
+    animation-duration: var(--hud-longitude-speed);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.hud-nodes {
+    animation-name: hudNodeDrift;
+    animation-duration: var(--hud-node-speed);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.hud-glow-cyan {
+    animation: hudBreatheCyan var(--hud-cyan-breathe-speed) ease-in-out infinite;
+}
+
+.hud-glow-pink {
+    animation: hudBreathePink var(--hud-pink-breathe-speed) ease-in-out infinite -.9s;
+}
+
+/* =========================
+   MARCA / CAMADA ESTÁVEL
+   ========================= */
 
 .hud-brand-layer {
     position: relative;
     z-index: 4;
-    width: 62%;
-    min-width: 190px;
+    width: 78%;
+    min-width: 220px;
     text-align: center;
     display: grid;
     justify-items: center;
@@ -82,17 +147,25 @@
 }
 
 .hud-brand-image {
-    max-width: min(280px, 100%);
+    width: min(72%, 300px);
+    height: auto;
     max-height: 126px;
     object-fit: contain;
     display: none;
 }
 
-.champions-core-hud.has-logo .hud-brand-image { display: block; }
-.champions-core-hud.has-logo .hud-brand-fallback { display: none; }
+.champions-core-hud.has-logo .hud-brand-image {
+    display: block;
+}
+
+.champions-core-hud.has-logo .hud-brand-fallback {
+    display: none;
+}
 
 .hud-brand-fallback strong,
-.hud-brand-fallback span { display: block; }
+.hud-brand-fallback span {
+    display: block;
+}
 
 .hud-brand-fallback strong {
     font-size: clamp(18px, 4vw, 30px);
@@ -126,7 +199,7 @@
     inset: 0 auto 0 -30%;
     width: 28%;
     background: linear-gradient(90deg, transparent, #d7ffff, transparent);
-    animation: hudSweep 8.8s ease-in-out infinite 2.1s;
+    animation: hudSweep var(--hud-sweep-speed) ease-in-out infinite 2.1s;
 }
 
 .hud-descriptor {
@@ -139,64 +212,206 @@
     text-transform: uppercase;
 }
 
-.champions-core-hud[data-state='loading'] { --hud-speed: 1.22; --hud-glow: 1.15; }
-.champions-core-hud[data-state='active'] { --hud-speed: 1.08; --hud-glow: 1.15; }
-.champions-core-hud[data-state='attention'] { --hud-speed: 1.16; --hud-glow: 1.25; }
-.champions-core-hud[data-state='critical'] { --hud-speed: 1.28; --hud-glow: 1.35; }
-.champions-core-hud[data-state='offline'] { --hud-speed: .18; --hud-glow: .45; opacity: .68; }
+/* =========================
+   ESTADOS SISTÊMICOS
+   ========================= */
 
-.champions-core-hud.is-paused * { animation-play-state: paused !important; }
+.champions-core-hud[data-state='idle'] {
+    --hud-ring-speed: 110s;
+    --hud-ring-reverse-speed: 150s;
+    --hud-ring-inner-speed: 195s;
+    --hud-longitude-speed: 38s;
+    --hud-node-speed: 34s;
+    --hud-glow: .85;
+}
+
+.champions-core-hud[data-state='loading'] {
+    --hud-ring-speed: 70s;
+    --hud-ring-reverse-speed: 98s;
+    --hud-ring-inner-speed: 132s;
+    --hud-longitude-speed: 24s;
+    --hud-node-speed: 21s;
+    --hud-glow: 1.18;
+}
+
+.champions-core-hud[data-state='active'] {
+    --hud-ring-speed: 89s;
+    --hud-ring-reverse-speed: 127s;
+    --hud-ring-inner-speed: 168s;
+    --hud-longitude-speed: 31s;
+    --hud-node-speed: 27s;
+    --hud-glow: 1.15;
+}
+
+.champions-core-hud[data-state='attention'] {
+    --hud-ring-speed: 76s;
+    --hud-ring-reverse-speed: 108s;
+    --hud-ring-inner-speed: 146s;
+    --hud-longitude-speed: 27s;
+    --hud-node-speed: 23s;
+    --hud-glow: 1.25;
+}
+
+.champions-core-hud[data-state='critical'] {
+    --hud-ring-speed: 65s;
+    --hud-ring-reverse-speed: 92s;
+    --hud-ring-inner-speed: 124s;
+    --hud-longitude-speed: 23s;
+    --hud-node-speed: 20s;
+    --hud-glow: 1.35;
+}
+
+.champions-core-hud[data-state='offline'] {
+    --hud-ring-speed: 220s;
+    --hud-ring-reverse-speed: 280s;
+    --hud-ring-inner-speed: 340s;
+    --hud-longitude-speed: 72s;
+    --hud-node-speed: 62s;
+    --hud-glow: .45;
+    opacity: .68;
+}
+
+/* Pausa explícita apenas quando o JS determinar. */
+.champions-core-hud.is-paused .hud-ring,
+.champions-core-hud.is-paused .hud-ring-reverse,
+.champions-core-hud.is-paused .hud-ring-inner,
+.champions-core-hud.is-paused .hud-longitudes,
+.champions-core-hud.is-paused .hud-nodes,
+.champions-core-hud.is-paused .hud-glow-cyan,
+.champions-core-hud.is-paused .hud-glow-pink,
+.champions-core-hud.is-paused .hud-separator::after {
+    animation-play-state: paused !important;
+}
+
+/* =========================
+   VARIANTES
+   ========================= */
+
+.champions-core-hud[data-variant='hero'] {
+    --hud-size: min(100%, 500px);
+}
+
+.champions-core-hud[data-variant='standard'] {
+    --hud-size: min(100%, 380px);
+}
 
 .champions-core-hud[data-variant='compact'] {
     --hud-size: min(100%, 260px);
 }
+
 .champions-core-hud[data-variant='compact'] .hud-micro,
 .champions-core-hud[data-variant='compact'] .hud-descriptor,
-.champions-core-hud[data-variant='compact'] .hud-separator { display: none; }
+.champions-core-hud[data-variant='compact'] .hud-separator {
+    display: none;
+}
 
-@keyframes hudRotate { to { transform: rotate(360deg); } }
-@keyframes hudRotateReverse { to { transform: rotate(-360deg); } }
+/* =========================
+   KEYFRAMES
+   ========================= */
+
+@keyframes hudRotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@keyframes hudRotateReverse {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(-360deg); }
+}
+
 @keyframes hudLongitude {
-    0% { transform: translateX(-8px) scaleX(.96); opacity: .72; }
-    48% { transform: translateX(7px) scaleX(1.04); opacity: 1; }
+    0%   { transform: translateX(-8px) scaleX(.96); opacity: .72; }
+    48%  { transform: translateX(7px) scaleX(1.04); opacity: 1; }
     100% { transform: translateX(-3px) scaleX(.98); opacity: .8; }
 }
+
 @keyframes hudNodeDrift {
     from { transform: rotate(-1.2deg) translateY(1px); opacity: .65; }
-    to { transform: rotate(1.6deg) translateY(-2px); opacity: .95; }
-}
-@keyframes hudBreatheCyan {
-    0%,100% { opacity: .36; transform: scale(.985); }
-    42% { opacity: .76; transform: scale(1.018); }
-    70% { opacity: .48; transform: scale(1.002); }
-}
-@keyframes hudBreathePink {
-    0%,100% { opacity: .18; transform: scale(1); }
-    55% { opacity: .48; transform: scale(1.025); }
-}
-@keyframes hudSweep {
-    0%, 64% { transform: translateX(0); opacity: 0; }
-    72% { opacity: .75; }
-    88% { transform: translateX(470%); opacity: .55; }
-    100% { transform: translateX(470%); opacity: 0; }
+    to   { transform: rotate(1.6deg) translateY(-2px); opacity: .95; }
 }
 
+@keyframes hudBreatheCyan {
+    0%, 100% { opacity: .36; transform: scale(.985); }
+    42%      { opacity: .76; transform: scale(1.018); }
+    70%      { opacity: .48; transform: scale(1.002); }
+}
+
+@keyframes hudBreathePink {
+    0%, 100% { opacity: .18; transform: scale(1); }
+    55%      { opacity: .48; transform: scale(1.025); }
+}
+
+@keyframes hudSweep {
+    0%, 64% { transform: translateX(0); opacity: 0; }
+    72%     { opacity: .75; }
+    88%     { transform: translateX(470%); opacity: .55; }
+    100%    { transform: translateX(470%); opacity: 0; }
+}
+
+/* Animação de baixa estimulação para reduced-motion. */
+@keyframes hudReducedPulse {
+    0%, 100% { opacity: .28; }
+    50%      { opacity: .48; }
+}
+
+/* =========================
+   RESPONSIVIDADE
+   ========================= */
+
 @media (max-width: 1000px) {
-    .champions-core-hud { --hud-size: min(100%, 430px); }
-    .hud-micro:nth-of-type(2n) { opacity: .4; }
+    .champions-core-hud[data-variant='hero'] {
+        --hud-size: min(100%, 430px);
+    }
+
+    .hud-micro:nth-of-type(2n) {
+        opacity: .4;
+    }
 }
 
 @media (max-width: 700px) {
-    .champions-core-hud { --hud-size: min(100%, 360px); }
-    .hud-micro { display: none; }
-    .hud-brand-layer { width: 70%; min-width: 0; }
-    .hud-descriptor { max-width: 260px; letter-spacing: .12em; }
+    .champions-core-hud[data-variant='hero'] {
+        --hud-size: min(100%, 360px);
+    }
+
+    .hud-micro {
+        display: none;
+    }
+
+    .hud-brand-layer {
+        width: 70%;
+        min-width: 0;
+    }
+
+    .hud-brand-image {
+        width: min(78%, 250px);
+        max-height: 112px;
+    }
+
+    .hud-descriptor {
+        max-width: 260px;
+        letter-spacing: .12em;
+    }
 }
 
+/* =========================
+   ACESSIBILIDADE
+   ========================= */
+
 @media (prefers-reduced-motion: reduce) {
-    .champions-core-hud *,
-    .champions-core-hud *::before,
-    .champions-core-hud *::after {
+    .hud-ring,
+    .hud-ring-reverse,
+    .hud-ring-inner,
+    .hud-longitudes,
+    .hud-nodes,
+    .hud-separator::after {
         animation: none !important;
+        transform: none !important;
+    }
+
+    /* Mantém somente uma respiração por opacidade, sem deslocamento/rotação. */
+    .hud-glow-cyan,
+    .hud-glow-pink {
+        animation: hudReducedPulse 12s ease-in-out infinite !important;
+        transform: none !important;
     }
 }

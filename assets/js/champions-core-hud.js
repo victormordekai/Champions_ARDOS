@@ -1,83 +1,191 @@
 (function () {
     'use strict';
 
-    const VALID_STATES = new Set(['idle', 'loading', 'active', 'attention', 'critical', 'offline']);
-    const VALID_VARIANTS = new Set(['hero', 'standard', 'compact']);
+    const VALID_STATES = new Set([
+        'idle',
+        'loading',
+        'active',
+        'attention',
+        'critical',
+        'offline'
+    ]);
+
+    const VALID_VARIANTS = new Set([
+        'hero',
+        'standard',
+        'compact'
+    ]);
 
     class ChampionsCoreHUD {
         constructor(element) {
             this.element = element;
-            this.visibilityObserver = null;
             this.boundVisibility = this.handleDocumentVisibility.bind(this);
+
             this.init();
         }
 
         init() {
-            this.setState(this.element.dataset.state || 'active');
-            this.setVariant(this.element.dataset.variant || 'hero');
+            this.setState(
+                this.element.dataset.state || 'active'
+            );
+
+            this.setVariant(
+                this.element.dataset.variant || 'hero'
+            );
+
             this.initLogo();
-            this.observeVisibility();
-            document.addEventListener('visibilitychange', this.boundVisibility);
+
+            document.addEventListener(
+                'visibilitychange',
+                this.boundVisibility
+            );
+
+            this.handleDocumentVisibility();
         }
 
         initLogo() {
-            const image = this.element.querySelector('.hud-brand-image');
-            if (!image || !image.getAttribute('src')) return;
+            const image = this.element.querySelector(
+                '.hud-brand-image'
+            );
 
-            const enable = () => this.element.classList.add('has-logo');
-            const disable = () => this.element.classList.remove('has-logo');
+            if (!image) return;
 
-            if (image.complete && image.naturalWidth > 0) enable();
-            image.addEventListener('load', enable, { once: true });
-            image.addEventListener('error', disable, { once: true });
+            const source = image.getAttribute('src');
+
+            if (!source) return;
+
+            const enableLogo = () => {
+                this.element.classList.add('has-logo');
+            };
+
+            const disableLogo = () => {
+                this.element.classList.remove('has-logo');
+            };
+
+            if (
+                image.complete &&
+                image.naturalWidth > 0
+            ) {
+                enableLogo();
+            }
+
+            image.addEventListener(
+                'load',
+                enableLogo
+            );
+
+            image.addEventListener(
+                'error',
+                disableLogo
+            );
         }
 
         setState(state) {
-            const normalized = VALID_STATES.has(state) ? state : 'idle';
-            this.element.dataset.state = normalized;
-            this.element.dispatchEvent(new CustomEvent('champions:hud-state', {
-                detail: { state: normalized }
-            }));
+            const normalizedState =
+                VALID_STATES.has(state)
+                    ? state
+                    : 'idle';
+
+            this.element.dataset.state =
+                normalizedState;
+
+            this.element.dispatchEvent(
+                new CustomEvent(
+                    'champions:hud-state',
+                    {
+                        detail: {
+                            state: normalizedState
+                        }
+                    }
+                )
+            );
+        }
+
+        getState() {
+            return this.element.dataset.state;
         }
 
         setVariant(variant) {
-            this.element.dataset.variant = VALID_VARIANTS.has(variant) ? variant : 'standard';
+            const normalizedVariant =
+                VALID_VARIANTS.has(variant)
+                    ? variant
+                    : 'standard';
+
+            this.element.dataset.variant =
+                normalizedVariant;
+        }
+
+        getVariant() {
+            return this.element.dataset.variant;
         }
 
         pause() {
-            this.element.classList.add('is-paused');
+            this.element.classList.add(
+                'is-paused'
+            );
         }
 
         resume() {
-            if (!document.hidden) this.element.classList.remove('is-paused');
-        }
-
-        observeVisibility() {
-            if (!('IntersectionObserver' in window)) return;
-            this.visibilityObserver = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => entry.isIntersecting ? this.resume() : this.pause());
-            }, { threshold: 0.04 });
-            this.visibilityObserver.observe(this.element);
+            this.element.classList.remove(
+                'is-paused'
+            );
         }
 
         handleDocumentVisibility() {
-            document.hidden ? this.pause() : this.resume();
+            if (document.hidden) {
+                this.pause();
+            } else {
+                this.resume();
+            }
         }
 
         destroy() {
-            if (this.visibilityObserver) this.visibilityObserver.disconnect();
-            document.removeEventListener('visibilitychange', this.boundVisibility);
+            document.removeEventListener(
+                'visibilitychange',
+                this.boundVisibility
+            );
+
+            delete this.element.championsCoreHUD;
         }
     }
 
-    function boot() {
-        document.querySelectorAll('[data-champions-core-hud]').forEach((element) => {
-            if (!element.championsCoreHUD) element.championsCoreHUD = new ChampionsCoreHUD(element);
+    function bootChampionsCoreHUD() {
+        const elements =
+            document.querySelectorAll(
+                '[data-champions-core-hud]'
+            );
+
+        elements.forEach((element) => {
+            if (
+                element.championsCoreHUD
+            ) {
+                return;
+            }
+
+            element.championsCoreHUD =
+                new ChampionsCoreHUD(
+                    element
+                );
         });
     }
 
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
-    else boot();
+    if (
+        document.readyState === 'loading'
+    ) {
+        document.addEventListener(
+            'DOMContentLoaded',
+            bootChampionsCoreHUD,
+            {
+                once: true
+            }
+        );
+    } else {
+        bootChampionsCoreHUD();
+    }
 
-    window.ChampionsCoreHUD = ChampionsCoreHUD;
+    window.ChampionsCoreHUD =
+        ChampionsCoreHUD;
+
+    window.bootChampionsCoreHUD =
+        bootChampionsCoreHUD;
 })();
