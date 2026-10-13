@@ -415,3 +415,38 @@
         transform: none !important;
     }
 }
+
+/* =========================================================
+   ACESSIBILIDADE — MOVIMENTO REDUZIDO DO HUD
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    /*
+     * Mantém identidade viva sem movimento orbital contínuo.
+     */
+
+    .hud-ring,
+    .hud-ring-reverse,
+    .hud-ring-inner,
+    .hud-longitudes,
+    .hud-nodes {
+        animation: none !important;
+    }
+
+    /*
+     * Preserva apenas uma respiração luminosa muito lenta.
+     */
+
+    .hud-glow-cyan {
+        animation: hudBreatheCyan 18s ease-in-out infinite !important;
+    }
+
+    .hud-glow-pink {
+        animation: hudBreathePink 24s ease-in-out infinite !important;
+    }
+
+    .hud-separator::after {
+        animation: none !important;
+    }
+}
