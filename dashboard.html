@@ -173,154 +173,146 @@
         </section>
 
 <!-- =====================================================
-     SGO-ARDOS — seção institucional pública
-     Texto + conceito à esquerda / HUD à direita
-     ===================================================== -->
+             SGO-ARDOS — seção institucional pública
+             Conteúdo à esquerda / CHAMPIONS CORE HUD à direita
+             ===================================================== -->
+        <section class="about sgo-about shell" aria-labelledby="sgo-title">
 
-<section class="about sgo-about shell" aria-labelledby="sgo-title">
+            <div class="sgo-copy">
+                <p class="eyebrow">
+                    SGO-ARDOS / GOVERNANÇA ORGANIZACIONAL
+                </p>
 
-    <div class="sgo-copy">
+                <h2 id="sgo-title">
+                    Governança que permanece.<br>
+                    <span>Tecnologia que evolui.</span>
+                </h2>
 
-        <p class="eyebrow">
-            SGO-ARDOS / GOVERNANÇA ORGANIZACIONAL
-        </p>
+                <div class="sgo-text">
+                    <p>
+                        O SGO-ARDOS integra princípios, processos, responsabilidades
+                        e rastreabilidade para sustentar uma operação consistente,
+                        clara e preparada para evoluir.
+                    </p>
 
-        <h2 id="sgo-title">
-            Governança que permanece.<br>
-            <span>Tecnologia que evolui.</span>
-        </h2>
+                    <p>
+                        O Champions ARDOS materializa essa governança na rotina
+                        operacional, conectando informação, capacidade, prioridades
+                        e execução sem depender de uma única tecnologia.
+                    </p>
+                </div>
+            </div>
 
-        <div class="sgo-text">
-            <p>
-                O SGO-ARDOS integra princípios, processos, responsabilidades
-                e rastreabilidade para sustentar uma operação consistente,
-                clara e preparada para evoluir.
-            </p>
-
-            <p>
-                O Champions ARDOS materializa essa governança na rotina
-                operacional, conectando informação, capacidade, prioridades
-                e execução sem depender de uma única tecnologia.
-            </p>
-        </div>
-
-    </div>
-
-    <div class="sgo-hud">
-        <!-- CHAMPIONS CORE HUD aqui -->
-    </div>
-
-</section>
-
-<div
-    class="champions-core-hud"
-    data-champions-core-hud
-    data-state="active"
-    data-variant="hero"
-    role="img"
-    aria-label="Champions ARDOS, sistema de gestão e inteligência operacional"
->
-    <div class="hud-stage" aria-hidden="true">
-        <svg class="hud-svg" viewBox="0 0 500 500" focusable="false">
-            <defs>
-                <radialGradient id="hudSphere" cx="48%" cy="42%" r="62%">
-                    <stop offset="0" stop-color="#16334b"/>
-                    <stop offset=".52" stop-color="#0b1d31"/>
-                    <stop offset="1" stop-color="#050d17"/>
-                </radialGradient>
-                <radialGradient id="hudCyanGlow">
-                    <stop offset="0" stop-color="#65e3df" stop-opacity=".28"/>
-                    <stop offset="1" stop-color="#65e3df" stop-opacity="0"/>
-                </radialGradient>
-                <radialGradient id="hudPinkGlow">
-                    <stop offset="0" stop-color="#ec5799" stop-opacity=".22"/>
-                    <stop offset="1" stop-color="#ec5799" stop-opacity="0"/>
-                </radialGradient>
-                <clipPath id="hudSphereClip">
-                    <circle cx="250" cy="250" r="126"/>
-                </clipPath>
-                <filter id="hudSoftGlow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="3.8" result="blur"/>
-                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-            </defs>
-
-            <circle class="hud-glow-cyan" cx="250" cy="250" r="205" fill="url(#hudCyanGlow)"/>
-            <circle class="hud-glow-pink" cx="333" cy="184" r="104" fill="url(#hudPinkGlow)"/>
-
-            <g class="hud-ring" fill="none" stroke="#65e3df">
-                <circle cx="250" cy="250" r="208" stroke-opacity=".17"/>
-                <path d="M250 42 A208 208 0 0 1 431 147" stroke-opacity=".72" stroke-width="2"/>
-                <path d="M68 349 A208 208 0 0 1 133 79" stroke-opacity=".38"/>
-                <path d="M403 391 A208 208 0 0 1 341 438" stroke-opacity=".55" stroke-width="3"/>
-                <g class="hud-micro" stroke-opacity=".45">
-                    <path d="M250 34v16M320 46l-5 15M385 80l-9 13M435 131l-13 9M466 195l-15 5M466 305l-15-5M435 369l-13-9M385 420l-9-13M320 454l-5-15M180 454l5-15M115 420l9-13M65 369l13-9M34 305l15-5M34 195l15 5M65 131l13 9M115 80l9 13M180 46l5 15"/>
-                </g>
-            </g>
-
-            <g class="hud-ring-reverse" fill="none">
-                <circle cx="250" cy="250" r="184" stroke="#315560" stroke-opacity=".46" stroke-dasharray="4 11 32 8"/>
-                <path d="M113 128A184 184 0 0 1 166 84" stroke="#ec5799" stroke-width="3" stroke-linecap="round"/>
-                <path d="M389 370A184 184 0 0 1 353 402" stroke="#65e3df" stroke-width="2"/>
-                <g class="hud-micro" fill="#65e3df">
-                    <circle cx="92" cy="156" r="3"/><circle cx="408" cy="344" r="2.5"/><circle cx="398" cy="132" r="2"/>
-                </g>
-            </g>
-
-            <g class="hud-ring-inner" fill="none" stroke="#65e3df">
-                <circle cx="250" cy="250" r="153" stroke-opacity=".22" stroke-dasharray="58 8 7 12"/>
-                <path d="M342 128A153 153 0 0 1 390 203" stroke-opacity=".8" stroke-width="2"/>
-            </g>
-
-            <circle cx="250" cy="250" r="126" fill="url(#hudSphere)" stroke="#37606f" stroke-opacity=".7"/>
-            <circle cx="250" cy="250" r="119" fill="none" stroke="#65e3df" stroke-opacity=".12"/>
-
-            <g clip-path="url(#hudSphereClip)" fill="none" stroke="#65e3df">
-                <g opacity=".26">
-                    <ellipse cx="250" cy="250" rx="119" ry="28"/>
-                    <ellipse cx="250" cy="250" rx="119" ry="61"/>
-                    <ellipse cx="250" cy="250" rx="119" ry="91"/>
-                    <path d="M132 250h236" stroke-opacity=".5"/>
-                </g>
-                <g class="hud-longitudes" opacity=".47">
-                    <ellipse cx="250" cy="250" rx="24" ry="119"/>
-                    <ellipse cx="250" cy="250" rx="56" ry="119"/>
-                    <ellipse cx="250" cy="250" rx="91" ry="119"/>
-                    <ellipse cx="250" cy="250" rx="134" ry="119"/>
-                </g>
-                <g class="hud-nodes" filter="url(#hudSoftGlow)">
-                    <circle cx="185" cy="205" r="2.4" fill="#65e3df" stroke="none"/>
-                    <circle cx="312" cy="219" r="2.1" fill="#65e3df" stroke="none"/>
-                    <circle cx="221" cy="316" r="1.9" fill="#ec5799" stroke="none"/>
-                    <circle cx="337" cy="286" r="1.8" fill="#65e3df" stroke="none"/>
-                    <path d="M185 205l36 25 91-11 25 67-116 30" stroke-opacity=".18"/>
-                </g>
-            </g>
-
-            <g class="hud-micro" fill="none" stroke="#65e3df" stroke-opacity=".45">
-                <path d="M250 100v23M250 377v23M100 250h23M377 250h23"/>
-                <circle cx="250" cy="250" r="136" stroke-dasharray="2 18"/>
-            </g>
-        </svg>
-    </div>
-
-    <div class="hud-brand-layer">
-        <img
-            class="hud-brand-image"
-            src="assets/img/Logo_Name_Champions_Ardos.svg"
-            alt=""
-        >
-        <div class="hud-brand-fallback" aria-hidden="true">
-            <div class="hud-brand-mark">A</div>
-            <strong>CHAMPIONS</strong>
-            <span>ARDOS</span>
-        </div>
-        <div class="hud-separator" aria-hidden="true"></div>
-        <p class="hud-descriptor">
-            Sistema de gestão e inteligência operacional
-        </p>
-    </div>
-</div>
+            <div class="sgo-hud">
+                <div
+                    class="champions-core-hud"
+                    data-champions-core-hud
+                    data-state="active"
+                    data-variant="hero"
+                    role="img"
+                    aria-label="Champions ARDOS, sistema de gestão e inteligência operacional"
+                >
+                    <div class="hud-stage" aria-hidden="true">
+                        <svg class="hud-svg" viewBox="0 0 500 500" focusable="false">
+                            <defs>
+                                <radialGradient id="hudSphere" cx="48%" cy="42%" r="62%">
+                                    <stop offset="0" stop-color="#16334b"/>
+                                    <stop offset=".52" stop-color="#0b1d31"/>
+                                    <stop offset="1" stop-color="#050d17"/>
+                                </radialGradient>
+                                <radialGradient id="hudCyanGlow">
+                                    <stop offset="0" stop-color="#65e3df" stop-opacity=".28"/>
+                                    <stop offset="1" stop-color="#65e3df" stop-opacity="0"/>
+                                </radialGradient>
+                                <radialGradient id="hudPinkGlow">
+                                    <stop offset="0" stop-color="#ec5799" stop-opacity=".22"/>
+                                    <stop offset="1" stop-color="#ec5799" stop-opacity="0"/>
+                                </radialGradient>
+                                <clipPath id="hudSphereClip">
+                                    <circle cx="250" cy="250" r="126"/>
+                                </clipPath>
+                                <filter id="hudSoftGlow" x="-40%" y="-40%" width="180%" height="180%">
+                                    <feGaussianBlur stdDeviation="3.8" result="blur"/>
+                                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                </filter>
+                            </defs>
+                
+                            <circle class="hud-glow-cyan" cx="250" cy="250" r="205" fill="url(#hudCyanGlow)"/>
+                            <circle class="hud-glow-pink" cx="333" cy="184" r="104" fill="url(#hudPinkGlow)"/>
+                
+                            <g class="hud-ring" fill="none" stroke="#65e3df">
+                                <circle cx="250" cy="250" r="208" stroke-opacity=".17"/>
+                                <path d="M250 42 A208 208 0 0 1 431 147" stroke-opacity=".72" stroke-width="2"/>
+                                <path d="M68 349 A208 208 0 0 1 133 79" stroke-opacity=".38"/>
+                                <path d="M403 391 A208 208 0 0 1 341 438" stroke-opacity=".55" stroke-width="3"/>
+                                <g class="hud-micro" stroke-opacity=".45">
+                                    <path d="M250 34v16M320 46l-5 15M385 80l-9 13M435 131l-13 9M466 195l-15 5M466 305l-15-5M435 369l-13-9M385 420l-9-13M320 454l-5-15M180 454l5-15M115 420l9-13M65 369l13-9M34 305l15-5M34 195l15 5M65 131l13 9M115 80l9 13M180 46l5 15"/>
+                                </g>
+                            </g>
+                
+                            <g class="hud-ring-reverse" fill="none">
+                                <circle cx="250" cy="250" r="184" stroke="#315560" stroke-opacity=".46" stroke-dasharray="4 11 32 8"/>
+                                <path d="M113 128A184 184 0 0 1 166 84" stroke="#ec5799" stroke-width="3" stroke-linecap="round"/>
+                                <path d="M389 370A184 184 0 0 1 353 402" stroke="#65e3df" stroke-width="2"/>
+                                <g class="hud-micro" fill="#65e3df">
+                                    <circle cx="92" cy="156" r="3"/><circle cx="408" cy="344" r="2.5"/><circle cx="398" cy="132" r="2"/>
+                                </g>
+                            </g>
+                
+                            <g class="hud-ring-inner" fill="none" stroke="#65e3df">
+                                <circle cx="250" cy="250" r="153" stroke-opacity=".22" stroke-dasharray="58 8 7 12"/>
+                                <path d="M342 128A153 153 0 0 1 390 203" stroke-opacity=".8" stroke-width="2"/>
+                            </g>
+                
+                            <circle cx="250" cy="250" r="126" fill="url(#hudSphere)" stroke="#37606f" stroke-opacity=".7"/>
+                            <circle cx="250" cy="250" r="119" fill="none" stroke="#65e3df" stroke-opacity=".12"/>
+                
+                            <g clip-path="url(#hudSphereClip)" fill="none" stroke="#65e3df">
+                                <g opacity=".26">
+                                    <ellipse cx="250" cy="250" rx="119" ry="28"/>
+                                    <ellipse cx="250" cy="250" rx="119" ry="61"/>
+                                    <ellipse cx="250" cy="250" rx="119" ry="91"/>
+                                    <path d="M132 250h236" stroke-opacity=".5"/>
+                                </g>
+                                <g class="hud-longitudes" opacity=".47">
+                                    <ellipse cx="250" cy="250" rx="24" ry="119"/>
+                                    <ellipse cx="250" cy="250" rx="56" ry="119"/>
+                                    <ellipse cx="250" cy="250" rx="91" ry="119"/>
+                                    <ellipse cx="250" cy="250" rx="134" ry="119"/>
+                                </g>
+                                <g class="hud-nodes" filter="url(#hudSoftGlow)">
+                                    <circle cx="185" cy="205" r="2.4" fill="#65e3df" stroke="none"/>
+                                    <circle cx="312" cy="219" r="2.1" fill="#65e3df" stroke="none"/>
+                                    <circle cx="221" cy="316" r="1.9" fill="#ec5799" stroke="none"/>
+                                    <circle cx="337" cy="286" r="1.8" fill="#65e3df" stroke="none"/>
+                                    <path d="M185 205l36 25 91-11 25 67-116 30" stroke-opacity=".18"/>
+                                </g>
+                            </g>
+                
+                            <g class="hud-micro" fill="none" stroke="#65e3df" stroke-opacity=".45">
+                                <path d="M250 100v23M250 377v23M100 250h23M377 250h23"/>
+                                <circle cx="250" cy="250" r="136" stroke-dasharray="2 18"/>
+                            </g>
+                        </svg>
+                    </div>
+                
+                    <div class="hud-brand-layer">
+                        <img
+                            class="hud-brand-image"
+                            src="assets/img/Logo_Name_Champions_Ardos.svg"
+                            alt=""
+                        >
+                        <div class="hud-brand-fallback" aria-hidden="true">
+                            <div class="hud-brand-mark">A</div>
+                            <strong>CHAMPIONS</strong>
+                            <span>ARDOS</span>
+                        </div>
+                        <div class="hud-separator" aria-hidden="true"></div>
+                        <p class="hud-descriptor">
+                            Sistema de gestão e inteligência operacional
+                        </p>
+                    </div>
+                </div>
             </div>
 
         </section>

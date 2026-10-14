@@ -315,7 +315,7 @@ h2 span {
     margin: 0;
 }
 
-.about-text p {
+.about-text > p {
     color: var(--muted);
     font-size: 18px;
     margin: 0 0 22px;
@@ -682,6 +682,54 @@ form .button {
 }
 
 
+
+/* =========================================================
+   18.1 SGO-ARDOS — BLOCO INSTITUCIONAL COM HUD
+   ========================================================= */
+
+.sgo-about {
+    grid-template-columns: minmax(0, 1.05fr) minmax(380px, .95fr);
+    align-items: center;
+    gap: 70px;
+}
+
+.sgo-copy {
+    min-width: 0;
+    max-width: 650px;
+}
+
+.sgo-copy h2 {
+    margin-bottom: 34px;
+}
+
+.sgo-text {
+    max-width: 610px;
+}
+
+.sgo-text p {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.65;
+    margin: 0 0 22px;
+}
+
+.sgo-text p:last-child {
+    margin-bottom: 0;
+}
+
+.sgo-hud {
+    min-width: 0;
+    width: 100%;
+    display: grid;
+    place-items: center end;
+}
+
+.sgo-hud > .champions-core-hud {
+    width: min(100%, 500px);
+    margin: 0;
+    justify-self: end;
+}
+
 /* =========================================================
    19. RESPONSIVIDADE — TABLETS E TELAS MÉDIAS
    ========================================================= */
@@ -719,17 +767,18 @@ form .button {
     .access-card h2 {
         font-size: 24px;
     }
-}
-
-@media (max-width: 1000px) {
 
     .sgo-about {
-        grid-template-columns: 1fr 1fr;
-        gap: 35px;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, .9fr);
+        gap: 36px;
     }
 
     .sgo-text p {
         font-size: 16px;
+    }
+
+    .sgo-hud > .champions-core-hud {
+        width: min(100%, 430px);
     }
 }
 
@@ -796,7 +845,7 @@ form .button {
         gap: 28px;
     }
 
-    .about-text p {
+    .about-text > p {
         font-size: 16px;
     }
 
@@ -868,9 +917,6 @@ form .button {
     .module-card {
         min-height: 195px;
     }
-}
-
-@media (max-width: 700px) {
 
     .sgo-about {
         grid-template-columns: 1fr;
@@ -882,11 +928,13 @@ form .button {
     }
 
     .sgo-hud {
-        justify-content: center;
+        place-items: center;
     }
 
-    .sgo-hud .champions-core-hud {
+    .sgo-hud > .champions-core-hud {
+        width: min(100%, 360px);
         margin-inline: auto;
+        justify-self: center;
     }
 
     .sgo-text p {
@@ -924,47 +972,4 @@ form .button {
     .button {
         transition-duration: 0.01ms !important;
     }
-}
-/* =========================================================
-   SGO-ARDOS — BLOCO INSTITUCIONAL COM HUD
-   ========================================================= */
-
-.sgo-about {
-    grid-template-columns: minmax(0, 1.05fr) minmax(380px, .95fr);
-    align-items: center;
-    gap: 70px;
-}
-
-.sgo-copy {
-    max-width: 650px;
-}
-
-.sgo-copy h2 {
-    margin-bottom: 34px;
-}
-
-.sgo-text {
-    max-width: 610px;
-}
-
-.sgo-text p {
-    color: var(--muted);
-    font-size: 18px;
-    line-height: 1.65;
-    margin: 0 0 22px;
-}
-
-.sgo-text p:last-child {
-    margin-bottom: 0;
-}
-
-.sgo-hud {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    min-width: 0;
-}
-
-.sgo-hud .champions-core-hud {
-    margin: 0;
 }
