@@ -721,6 +721,17 @@ form .button {
     }
 }
 
+@media (max-width: 1000px) {
+
+    .sgo-about {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+    }
+
+    .sgo-text p {
+        font-size: 16px;
+    }
+}
 
 /* =========================================================
    20. RESPONSIVIDADE — DISPOSITIVOS MÓVEIS
@@ -859,6 +870,29 @@ form .button {
     }
 }
 
+@media (max-width: 700px) {
+
+    .sgo-about {
+        grid-template-columns: 1fr;
+        gap: 34px;
+    }
+
+    .sgo-copy {
+        max-width: none;
+    }
+
+    .sgo-hud {
+        justify-content: center;
+    }
+
+    .sgo-hud .champions-core-hud {
+        margin-inline: auto;
+    }
+
+    .sgo-text p {
+        font-size: 16px;
+    }
+}
 
 /* =========================================================
    21. ACESSIBILIDADE — MOVIMENTO REDUZIDO
@@ -890,4 +924,47 @@ form .button {
     .button {
         transition-duration: 0.01ms !important;
     }
+}
+/* =========================================================
+   SGO-ARDOS — BLOCO INSTITUCIONAL COM HUD
+   ========================================================= */
+
+.sgo-about {
+    grid-template-columns: minmax(0, 1.05fr) minmax(380px, .95fr);
+    align-items: center;
+    gap: 70px;
+}
+
+.sgo-copy {
+    max-width: 650px;
+}
+
+.sgo-copy h2 {
+    margin-bottom: 34px;
+}
+
+.sgo-text {
+    max-width: 610px;
+}
+
+.sgo-text p {
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.65;
+    margin: 0 0 22px;
+}
+
+.sgo-text p:last-child {
+    margin-bottom: 0;
+}
+
+.sgo-hud {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: 0;
+}
+
+.sgo-hud .champions-core-hud {
+    margin: 0;
 }
