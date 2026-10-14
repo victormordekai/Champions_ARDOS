@@ -202,7 +202,7 @@
     animation: hudSweep var(--hud-sweep-speed) ease-in-out infinite 2.1s;
 }
 
-.hud-descriptor {
+.champions-core-hud .hud-descriptor {
     margin: 0;
     max-width: 330px;
     font-size: clamp(7px, 1.25vw, 10px);
