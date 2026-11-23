@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#07111e"/><path d="M14 48 29 14h7l15 34H41l-3-8H26l-3 8Zm15-16h6l-3-9Z" fill="#65e3df"/></svg>
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="875.308642" height="875.308642" viewBox="361.845679 -35.154321 875.308642 875.308642"><defs>
+ <linearGradient id="silver" x1="0" y1="0" x2="0.17" y2="1" objectBoundingBox="true"><stop offset="0" stop-color="#677789"/><stop offset="0.13" stop-color="#FFFFFF"/><stop offset="0.31" stop-color="#B4CBE3"/><stop offset="0.44" stop-color="#425675"/><stop offset="0.54" stop-color="#E9F6FF"/><stop offset="0.68" stop-color="#FFFFFF"/><stop offset="0.80" stop-color="#8095B1"/><stop offset="0.94" stop-color="#D8EAFF"/><stop offset="1" stop-color="#345073"/></linearGradient>
+ <linearGradient id="cyan" x1="0.2" y1="0" x2="0.75" y2="1"><stop offset="0" stop-color="#E6FFFF"/><stop offset="0.13" stop-color="#69FEFF"/><stop offset="0.34" stop-color="#07DDF4"/><stop offset="0.63" stop-color="#009BE8"/><stop offset="0.86" stop-color="#0443BF"/><stop offset="1" stop-color="#092462"/></linearGradient>
+ <linearGradient id="magenta" x1="0.1" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#FFC2F0"/><stop offset="0.15" stop-color="#FF4ACA"/><stop offset="0.38" stop-color="#FF00A2"/><stop offset="0.62" stop-color="#BA0064"/><stop offset="0.78" stop-color="#F800A8"/><stop offset="1" stop-color="#5D064B"/></linearGradient>
+ <linearGradient id="glint" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".9"/><stop offset=".17" stop-color="#FFFFFF" stop-opacity=".25"/><stop offset=".42" stop-color="#FFFFFF" stop-opacity="0"/><stop offset=".85" stop-color="#000" stop-opacity=".22"/><stop offset="1" stop-color="#FFF" stop-opacity=".2"/></linearGradient>
+ <filter id="shadow" x="-20%" y="-25%" width="150%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="9" result="blur"/><feOffset dy="13" result="off"/><feFlood flood-color="#002F8B" flood-opacity=".8"/><feComposite in2="off" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<g id="simbolo-oficial-A" filter="url(#shadow)">
+<g transform="translate(157.788945,-103.969849) scale(1.00502513)">
+<g id="simbolo-parte-1" data-origin="official-raster-contour"><path d="M810,193 L637,194 L290,789 L467,789Z" fill="url(#cyan)" stroke="#051830" stroke-width="7" stroke-linejoin="round"/><path d="M810,193 L637,194 L290,789 L467,789Z" fill="url(#glint)" stroke="#CBF6FF" stroke-opacity=".78" stroke-width="2.2"/></g>
+<g id="simbolo-parte-2" data-origin="official-raster-contour"><path d="M851,218 L724,438 L724,446 L762,630 L792,789 L987,789 L903,429Z" fill="url(#magenta)" stroke="#051830" stroke-width="7" stroke-linejoin="round"/><path d="M851,218 L724,438 L724,446 L762,630 L792,789 L987,789 L903,429Z" fill="url(#glint)" stroke="#CBF6FF" stroke-opacity=".78" stroke-width="2.2"/></g>
+</g></g>
+</svg>

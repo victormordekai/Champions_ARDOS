@@ -1,18 +1,82 @@
 @charset "UTF-8";
 
+/* PORTAL CHAMPIONS ARDOS — versão online V000.2
+   Folha única. Só estética: nenhum link, formulário ou destino é definido aqui. */
+
+
 /* =========================================================
-   01. VARIÁVEIS GLOBAIS
+   01. PALETA E TOKENS — PORTAL CHAMPIONS ARDOS
+   Fonte única de cor para todo o site. Nenhuma outra folha
+   deve declarar cor de marca fora daqui.
+
+   SITUAÇÃO DA PALETA (11/11/2026)
+   Não há manual de marca nem paleta oficial ARDOS registrada
+   nas fontes do projeto. Cada valor abaixo declara a origem:
+     [ARQUIVO]   lido de um ativo oficial (valor exato)
+     [V002]      token já documentado no portal V002
+     [DERIVADO]  criado para a interface; NÃO é cor de marca
+   As cores do logo Champions são as escritas no SVG mestre; o
+   próprio pacote do logo as declara não validadas contra manual
+   cromático. Promover qualquer valor a "oficial" é decisão da Direção.
    ========================================================= */
 
 :root {
-    --bg: #07111e;
-    --panel: #0d1c2d;
-    --line: #26384a;
-    --ink: #f2f6fb;
-    --muted: #a7b6c8;
-    --cyan: #65e3df;
-    --pink: #ec5799;
-    --radius: 12px;
+    /* ---- 1. MARCA ARDOS ------------------------------------ */
+    --ardos-navy: #0d152b;          /* [ARQUIVO] fill único de ardos_logo_vector_final.svg */
+
+    /* ---- 2. MARCA CHAMPIONS (champions_ardos_logo.svg, mestre de 17/11/2026) */
+    --logo-magenta: #ff00a2;        /* [ARQUIVO] degradê "magenta" do SVG mestre */
+    --logo-magenta-deep: #ba0064;   /* [ARQUIVO] idem, tom escuro */
+    --logo-cyan: #07ddf4;           /* [ARQUIVO] degradê "cyan" do SVG mestre */
+    --logo-azure: #009be8;          /* [ARQUIVO] idem, meio */
+    --logo-blue: #0443bf;           /* [ARQUIVO] idem, base */
+    --logo-silver: #d8eaff;         /* [ARQUIVO] degradê "silver" (cromo de CHAMPIONS) */
+    --logo-steel: #8095b1;          /* [ARQUIVO] idem, sombra */
+
+    /* ---- 3. SUPERFÍCIES E TEXTO --------------------------- */
+    --bg: #07111e;                  /* [V002] fundo */
+    --bg-deep: #050d17;             /* [V002] rodapé */
+    --panel: #0d1c2d;               /* [V002] painel */
+    --panel-2: #10243a;             /* [V002] painel elevado (ft_tokens) */
+    --line: #26384a;                /* [V002] linha */
+    --line-strong: #3a5368;         /* [DERIVADO] linha de campo/ênfase */
+    --ink: #f2f6fb;                 /* [V002] texto principal */
+    --muted: #a7b6c8;               /* [V002] texto secundário */
+
+    /* ---- 4. ACENTOS DE INTERFACE -------------------------- */
+    --cyan: #65e3df;                /* [V002] estrutura, fluxo, links */
+    --pink: #ec5799;                /* [V002] magenta suave p/ texto em fundo escuro */
+    --tiffany: #81d8d0;             /* [DERIVADO] destino do hover; referência genérica de "tiffany" */
+    --magenta-acao: #d90b7e;        /* [DERIVADO] magenta do logo escurecido: texto branco com contraste >= 4,5:1 */
+
+    /* ---- 5. PAPÉIS (usar estes nos componentes) ----------- */
+    --acao: var(--magenta-acao);            /* botão principal, passo ativo */
+    --acao-texto: #ffffff;
+    --acao-hover: var(--tiffany);           /* preenchimento que entra no hover */
+    --acao-hover-texto: var(--ardos-navy);
+    --estrutura: var(--cyan);               /* rótulos, links, ícones, foco */
+    --alerta: #ffb4c5;                      /* [V002] mensagens de erro da grade */
+
+    --grad-marca: linear-gradient(100deg, var(--logo-cyan), var(--logo-azure) 38%, var(--logo-magenta) 100%);
+    --grad-acao: linear-gradient(100deg, var(--magenta-acao), var(--logo-magenta-deep));
+    --fundo-pagina:
+        radial-gradient(1100px 640px at 92% -10%, rgba(255, 0, 162, .18), transparent 62%),
+        radial-gradient(900px 620px at -12% 108%, rgba(101, 227, 223, .10), transparent 60%),
+        linear-gradient(180deg, #0b1228 0%, var(--bg) 58%);
+
+    /* ---- 6. FORMA, TIPO E MOVIMENTO ----------------------- */
+    --radius: 14px;
+    --radius-sm: 8px;
+    --font-ui: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;  /* fontes do sistema: funciona offline */
+    --t-rapido: .18s;
+    --t-suave: .42s;
+    --curva: cubic-bezier(.22, .8, .2, 1);
+    --sombra: 0 18px 40px rgba(0, 0, 0, .35);
+
+    /* ---- 7. PENDENTE --------------------------------------
+       Cores departamentais (Comercial azul, Design magenta,
+       Produção/Logística verde-amarelo-tiffany, Diretoria bordô)
+       existem apenas como nomes. Sem HEX aprovado, não há token. */
 }
 
 
@@ -30,9 +94,10 @@ html {
 
 body {
     margin: 0;
-    background: var(--bg);
+    min-height: 100vh;
+    background: var(--fundo-pagina) fixed, var(--bg);
     color: var(--ink);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-ui);
     line-height: 1.6;
 }
 
@@ -42,7 +107,8 @@ a {
 }
 
 button,
-input {
+input,
+select {
     font: inherit;
 }
 
@@ -54,14 +120,50 @@ input {
 
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
-    outline: 3px solid var(--cyan);
-    outline-offset: 5px;
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+    outline: 3px solid var(--tiffany);
+    outline-offset: 4px;
 }
 
 ::selection {
-    background: var(--cyan);
-    color: var(--bg);
+    background: var(--logo-magenta);
+    color: #fff;
+}
+
+
+
+
+/* =========================================================
+   05. ACESSIBILIDADE
+   ========================================================= */
+
+.skip {
+    position: absolute;
+    top: -90px;
+    left: 20px;
+    background: var(--tiffany);
+    color: var(--ardos-navy);
+    padding: 12px;
+    z-index: 10;
+}
+
+.skip:focus {
+    top: 10px;
+}
+
+/* Texto só para leitor de tela (usado pela Grade Web). */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 
@@ -76,79 +178,128 @@ input:focus-visible {
 
 
 /* =========================================================
-   04. CABEÇALHO E NAVEGAÇÃO
+   04. CABEÇALHO E NAVEGAÇÃO — padrão único do Portal
+   O HTML vive em composer/header.html. Cada página escolhe
+   apenas o menu (?ctx=) e o item atual (&atual=).
    ========================================================= */
 
 .header {
-    min-height: 100px;
+    min-height: 84px;
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    padding: 20px 40px;
-    border-bottom: 1px solid var(--line);
-    gap: 22px;
+    padding: 12px 40px;
+    gap: 28px;
+    position: relative;
+}
+
+/* Filete com as três cores do logo: assinatura do cabeçalho. */
+.header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--grad-marca);
+    opacity: .75;
 }
 
 .brand {
-    font-size: 25px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    line-height: 1.1;
     display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: 12px;
+    border-radius: var(--radius-sm);
+    transition: transform var(--t-rapido) var(--curva);
 }
 
-.brand span {
-    font-size: 9px;
-    letter-spacing: 3px;
-    margin-top: 7px;
-    color: var(--cyan);
+.brand:hover {
+    transform: translateY(-1px);
+}
+
+/* Os SVGs do logo trazem margem interna (sombra); as alturas já a consideram. */
+.brand {
+    gap: 4px;
+}
+
+.brand-simbolo {
+    height: 58px;
+    width: auto;
+    display: block;
+}
+
+.brand-nome {
+    height: 42px;
+    width: auto;
+    display: block;
+}
+
+.brand-contexto {
+    display: block;
+    padding-left: 14px;
+    margin-left: 2px;
+    border-left: 1px solid var(--line-strong);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    line-height: 1.35;
+    color: var(--muted);
+    max-width: 190px;
+}
+
+.brand-contexto:empty {
+    display: none;
 }
 
 nav {
     display: flex;
-    gap: 30px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .04em;
+}
+
+nav[hidden] {
+    display: none;
 }
 
 nav a {
-    padding: 12px 0;
-    border-bottom: 2px solid transparent;
+    position: relative;
+    padding: 10px 14px;
+    border-radius: 999px;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: color var(--t-rapido), background var(--t-rapido);
 }
 
-nav a:hover,
+nav a:hover {
+    color: var(--ink);
+    background: rgba(129, 216, 208, .10);
+}
+
 nav a[aria-current] {
-    color: var(--cyan);
-    border-color: var(--cyan);
+    color: var(--ink);
+    background: rgba(255, 0, 162, .16);
+    box-shadow: inset 0 0 0 1px rgba(255, 0, 162, .45);
 }
 
-.header-note {
+.header-ardos {
     justify-self: end;
-    font-size: 9px;
-    letter-spacing: 1.2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: .08em;
     color: var(--muted);
 }
 
-
-/* =========================================================
-   05. ACESSIBILIDADE
-   ========================================================= */
-
-.skip {
-    position: absolute;
-    top: -90px;
-    left: 20px;
-    background: var(--cyan);
-    color: var(--bg);
-    padding: 12px;
-    z-index: 10;
-}
-
-.skip:focus {
-    top: 10px;
+.header-ardos img {
+    height: 26px;
+    width: auto;
+    /* Variação cromática para fundo escuro; geometria do SVG oficial intacta. */
+    filter: brightness(0) invert(1);
+    opacity: .85;
 }
 
 
@@ -158,8 +309,8 @@ nav a[aria-current] {
 
 .eyebrow {
     color: var(--cyan);
-    font-size: 11px;
-    letter-spacing: 2px;
+    font-size: 12px;
+    letter-spacing: .14em;
     font-weight: 700;
     margin: 0 0 24px;
 }
@@ -172,9 +323,14 @@ h1 {
     margin: 0 0 26px;
 }
 
+/* Segunda linha dos títulos: degradê do logo em vez de cinza. */
 h1 span,
 h2 span {
-    color: var(--muted);
+    color: var(--pink);
+    background: var(--grad-marca);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .lead {
@@ -191,10 +347,10 @@ h2 span {
 .text-link {
     display: inline-flex;
     gap: 36px;
-    font-size: 11px;
-    letter-spacing: 1.5px;
+    font-size: 12px;
+    letter-spacing: .08em;
     margin-top: 24px;
-    border-bottom: 1px solid var(--cyan);
+    border-bottom: 1px solid var(--tiffany);
     padding-bottom: 12px;
 }
 
@@ -216,13 +372,11 @@ h2 span {
     padding-block: 65px;
 }
 
-.hero > .champions-core-hud {
-    justify-self: end;
-}
-
 
 /* =========================================================
    08. CARTÕES DE ACESSO E MÓDULOS
+   Interação padrão: um véu magenta → tiffany sobe da base
+   do cartão e a borda assume o tiffany.
    ========================================================= */
 
 .access {
@@ -233,15 +387,36 @@ h2 span {
 }
 
 .access-card,
-.module-card {
-    display: block;
+.module-card,
+.service-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    background: linear-gradient(130deg, #112439, #0c1928);
+    background: linear-gradient(140deg, rgba(19, 39, 59, .92), rgba(11, 25, 41, .92));
     transition:
-        transform .22s,
-        box-shadow .22s,
-        border-color .22s;
+        transform var(--t-suave) var(--curva),
+        box-shadow var(--t-suave) var(--curva),
+        border-color var(--t-suave) var(--curva);
+}
+
+.access-card,
+.module-card {
+    display: block;
+}
+
+.access-card::before,
+.module-card::before,
+.service-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(0deg, rgba(129, 216, 208, .20), rgba(255, 0, 162, .14) 70%, transparent);
+    transform: scaleY(0);
+    transform-origin: center bottom;
+    transition: transform var(--t-suave) var(--curva);
 }
 
 .access-card {
@@ -250,11 +425,22 @@ h2 span {
 
 .access-card:hover,
 .module-card:hover,
+.service-card:hover,
+.service-card:focus-within,
 .access-card:focus-visible,
 .module-card:focus-visible {
-    transform: translateY(-4px) scale(1.01);
-    border-color: #57888c;
-    box-shadow: 0 20px 35px #0005;
+    transform: translateY(-4px);
+    border-color: var(--tiffany);
+    box-shadow: var(--sombra);
+}
+
+.access-card:hover::before,
+.module-card:hover::before,
+.service-card:hover::before,
+.service-card:focus-within::before,
+.access-card:focus-visible::before,
+.module-card:focus-visible::before {
+    transform: scaleY(1);
 }
 
 .access-card:active,
@@ -271,26 +457,33 @@ h2 span {
 
 .access-card h2 {
     font-size: 27px;
-    font-weight: 500;
+    font-weight: 600;
     margin: 10px 0;
 }
 
 .access-card p,
 .module-card p {
     color: var(--muted);
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .arrow {
     font-size: 30px;
-    color: var(--cyan);
+    color: var(--pink);
+    transition: transform var(--t-suave) var(--curva), color var(--t-suave);
+}
+
+.access-card:hover .arrow {
+    transform: translateX(6px);
+    color: var(--tiffany);
 }
 
 .card-action {
     display: block;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    color: var(--cyan);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--tiffany);
     margin-top: 28px;
 }
 
@@ -315,55 +508,13 @@ h2 span {
     margin: 0;
 }
 
-.about-text > p {
+.about-text p {
     color: var(--muted);
     font-size: 18px;
     margin: 0 0 22px;
 }
 
 
-/* =========================================================
-   10. BOTÕES
-   ========================================================= */
-
-.button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 18px 22px;
-    background: var(--cyan);
-    border: 1px solid var(--cyan);
-    border-radius: 6px;
-    color: #06202a;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition:
-        background .2s,
-        transform .2s;
-}
-
-.button:hover {
-    background: #a1f6ef;
-    transform: translateY(-2px);
-}
-
-.button.secondary {
-    background: transparent;
-    color: var(--cyan);
-    border-color: #476975;
-}
-
-.button.secondary:hover {
-    background: #163140;
-}
-
-.about .button {
-    display: inline-flex;
-    margin-top: 12px;
-}
 
 
 /* =========================================================
@@ -387,55 +538,160 @@ h2 span {
 
 
 /* =========================================================
+   10. BOTÕES
+   Interação padrão: o fundo magenta é coberto por um
+   preenchimento tiffany que entra da esquerda para a direita.
+   ========================================================= */
+
+.button {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 17px 22px;
+    background: var(--grad-acao);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--acao-texto);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    cursor: pointer;
+    transition:
+        color var(--t-suave) var(--curva),
+        border-color var(--t-suave) var(--curva),
+        box-shadow var(--t-suave) var(--curva),
+        transform var(--t-rapido) var(--curva);
+}
+
+.button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--acao-hover);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--t-suave) var(--curva);
+}
+
+.button:hover,
+.button:focus-visible {
+    color: var(--acao-hover-texto);
+    box-shadow: 0 10px 26px rgba(129, 216, 208, .22);
+    transform: translateY(-2px);
+}
+
+.button:hover::before,
+.button:focus-visible::before {
+    transform: scaleX(1);
+}
+
+.button:active {
+    transform: translateY(0);
+}
+
+.button.secondary {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line-strong);
+}
+
+.button.secondary:hover,
+.button.secondary:focus-visible {
+    color: var(--acao-hover-texto);
+    border-color: var(--acao-hover);
+}
+
+.about .button {
+    display: inline-flex;
+    margin-top: 12px;
+}
+
+
+/* =========================================================
    12. RODAPÉ
    ========================================================= */
 
 .footer {
-    border-top: 1px solid var(--line);
-    padding: 48px 40px 18px;
-    background: #050d17;
+    position: relative;
+    padding: 46px 40px 18px;
+    background: var(--bg-deep);
+}
+
+.footer::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: var(--grad-marca);
+    opacity: .75;
 }
 
 .footer-top {
     max-width: 1240px;
     margin: auto;
     display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
     gap: 35px;
 }
 
+.footer .brand-simbolo {
+    height: 54px;
+}
+
+.footer .brand-nome {
+    height: 38px;
+}
+
+.footer-assinatura {
+    margin: 16px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+}
+
+.footer-assinatura span {
+    color: var(--pink);
+}
+
 .footer h2 {
-    font-size: 10px;
-    letter-spacing: 1.6px;
-    margin: 0 0 16px;
-    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: .1em;
+    margin: 0 0 14px;
+    color: var(--tiffany);
 }
 
 .footer p,
 .footer a:not(.brand) {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--muted);
 }
 
 .footer a:not(.brand) {
     display: block;
     margin-bottom: 6px;
+    transition: color var(--t-rapido), transform var(--t-rapido);
 }
 
-.footer a:hover {
-    color: var(--cyan);
+.footer a:not(.brand):hover {
+    color: var(--tiffany);
+    transform: translateX(3px);
 }
 
 .footer-bottom {
     max-width: 1240px;
-    margin: 35px auto 0;
+    margin: 32px auto 0;
     border-top: 1px solid #1b2b3b;
-    padding-top: 18px;
+    padding-top: 16px;
     display: flex;
     justify-content: space-between;
     gap: 15px;
-    font-size: 9px;
-    letter-spacing: 1px;
+    font-size: 11px;
+    letter-spacing: .06em;
     color: #9aabbe;
 }
 
@@ -466,9 +722,6 @@ h2 span {
 
 .service-card {
     padding: 34px;
-    background: linear-gradient(140deg, #13273b, #0b1929);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
 }
 
 .service-card h2 {
@@ -486,9 +739,10 @@ h2 span {
 }
 
 .icon-label {
-    font-size: 10px;
-    letter-spacing: 1.7px;
-    color: var(--cyan);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: var(--tiffany);
 }
 
 .or {
@@ -500,50 +754,6 @@ h2 span {
 }
 
 
-/* =========================================================
-   14. FORMULÁRIOS E CAMPOS DE ENTRADA
-   ========================================================= */
-
-label {
-    display: block;
-    font-size: 10px;
-    letter-spacing: 1.4px;
-    margin: 27px 0 10px;
-}
-
-label span {
-    font-size: 10px;
-    text-transform: none;
-    color: var(--muted);
-    letter-spacing: 0;
-    margin-left: 8px;
-}
-
-input[type=text] {
-    width: 100%;
-    padding: 15px;
-    background: #081320;
-    color: var(--ink);
-    border: 1px solid #405367;
-    border-radius: 6px;
-    margin-bottom: 15px;
-}
-
-input::placeholder {
-    color: #99aabd;
-    font-size: 13px;
-}
-
-form .button {
-    width: 100%;
-}
-
-.service-card small {
-    display: block;
-    color: var(--muted);
-    font-size: 11px;
-    margin-top: 17px;
-}
 
 
 /* =========================================================
@@ -578,60 +788,56 @@ form .button {
 
 
 /* =========================================================
-   16. DASHBOARD DO COLABORADOR
+   14. FORMULÁRIOS E CAMPOS DE ENTRADA
    ========================================================= */
 
-.dashboard {
-    padding-block: 65px 80px;
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    margin: 27px 0 10px;
 }
 
-.dashboard-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 30px;
-    margin-bottom: 42px;
+label span {
+    font-size: 10px;
+    text-transform: none;
+    color: var(--muted);
+    letter-spacing: 0;
+    margin-left: 8px;
 }
 
-.dashboard-heading h1 {
-    font-size: clamp(38px, 4vw, 55px);
-    margin: 0;
+input[type=text] {
+    width: 100%;
+    padding: 15px;
+    background: #081320;
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    margin-bottom: 15px;
+    transition: border-color var(--t-rapido), box-shadow var(--t-rapido);
 }
 
-.module-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+input[type=text]:focus {
+    outline: none;
+    border-color: var(--tiffany);
+    box-shadow: 0 0 0 3px rgba(129, 216, 208, .22);
 }
 
-.module-card {
-    padding: 25px;
-    min-height: 208px;
-    display: flex;
-    flex-direction: column;
+input::placeholder {
+    color: #99aabd;
+    font-size: 13px;
 }
 
-.module-top {
-    display: flex;
-    justify-content: space-between;
-    color: var(--cyan);
-    font-size: 9px;
-    letter-spacing: 1px;
+form .button {
+    width: 100%;
 }
 
-.module-card h2 {
-    font-size: 23px;
-    line-height: 1.2;
-    font-weight: 500;
-    margin: 23px 0 4px;
-}
-
-.module-card p {
-    margin: 6px 0 20px;
-}
-
-.module-card .card-action {
-    margin-top: auto;
+.service-card small {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 17px;
 }
 
 
@@ -682,7 +888,6 @@ form .button {
 }
 
 
-
 /* =========================================================
    18.1 SGO-ARDOS — BLOCO INSTITUCIONAL COM HUD
    ========================================================= */
@@ -730,6 +935,7 @@ form .button {
     justify-self: end;
 }
 
+
 /* =========================================================
    19. RESPONSIVIDADE — TABLETS E TELAS MÉDIAS
    ========================================================= */
@@ -737,15 +943,17 @@ form .button {
 @media (max-width: 1000px) {
     .header {
         grid-template-columns: auto 1fr;
+        padding-inline: 24px;
     }
 
-    .header-note {
+    .header-ardos,
+    .brand-contexto {
         display: none;
     }
 
     nav {
-        justify-content: center;
-        gap: 22px;
+        justify-content: flex-end;
+        gap: 2px;
     }
 
     .hero {
@@ -754,6 +962,10 @@ form .button {
 
     .hero h1 {
         font-size: 46px;
+    }
+
+    .system-art {
+        transform: scale(.88);
     }
 
     .module-grid {
@@ -767,20 +979,10 @@ form .button {
     .access-card h2 {
         font-size: 24px;
     }
-
-    .sgo-about {
-        grid-template-columns: minmax(0, 1fr) minmax(320px, .9fr);
-        gap: 36px;
-    }
-
-    .sgo-text p {
-        font-size: 16px;
-    }
-
-    .sgo-hud > .champions-core-hud {
-        width: min(100%, 430px);
-    }
 }
+
+
+
 
 /* =========================================================
    20. RESPONSIVIDADE — DISPOSITIVOS MÓVEIS
@@ -794,20 +996,36 @@ form .button {
     .header {
         display: flex;
         flex-direction: column;
-        padding: 22px 18px 8px;
-        gap: 16px;
-    }
-
-    .brand {
-        font-size: 22px;
         align-items: center;
+        min-height: 0;
+        padding: 12px 12px 10px;
+        gap: 8px;
     }
 
+    .brand-simbolo {
+        height: 50px;
+    }
+
+    .brand-nome {
+        height: 36px;
+    }
+
+    /* Menu em uma linha rolável: a altura do cabeçalho não varia com o nº de itens. */
     nav {
-        gap: 20px;
         width: 100%;
-        font-size: 9px;
-        letter-spacing: .4px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        scrollbar-width: none;
+        font-size: 12px;
+        letter-spacing: 0;
+    }
+
+    nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    nav a {
+        padding: 9px 12px;
     }
 
     .hero {
@@ -825,9 +1043,39 @@ form .button {
         font-size: 14px;
     }
 
-    .hero > .champions-core-hud {
-        justify-self: center;
-        margin-top: 18px;
+    .system-art {
+        height: 310px;
+        transform: none;
+        margin-top: 15px;
+    }
+
+    .orbit {
+        width: 260px;
+        height: 260px;
+    }
+
+    .sat-one {
+        top: 38px;
+        left: 0;
+    }
+
+    .sat-two {
+        top: 65px;
+        right: 0;
+    }
+
+    .sat-three {
+        bottom: 46px;
+        left: 15%;
+    }
+
+    .core {
+        width: 200px;
+        height: 115px;
+    }
+
+    .art-caption {
+        bottom: 0;
     }
 
     .access {
@@ -845,7 +1093,7 @@ form .button {
         gap: 28px;
     }
 
-    .about-text > p {
+    .about-text p {
         font-size: 16px;
     }
 
@@ -854,7 +1102,7 @@ form .button {
     }
 
     .principle p {
-        font-size: 9px;
+        font-size: 11px;
         letter-spacing: .5px;
     }
 
@@ -872,7 +1120,7 @@ form .button {
 
     .footer-bottom {
         flex-direction: column;
-        font-size: 8px;
+        font-size: 10px;
     }
 
     .client,
@@ -917,7 +1165,47 @@ form .button {
     .module-card {
         min-height: 195px;
     }
+}
 
+
+
+
+/* =========================================================
+   21. ACESSIBILIDADE — MOVIMENTO REDUZIDO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+
+/* 18.1 — bloco SGO em telas médias e pequenas */
+
+@media (max-width: 1000px) {
+    .sgo-about {
+        grid-template-columns: minmax(0, 1fr) minmax(320px, .9fr);
+        gap: 36px;
+    }
+
+    .sgo-text p {
+        font-size: 16px;
+    }
+
+    .sgo-hud > .champions-core-hud {
+        width: min(100%, 430px);
+    }
+}
+
+@media (max-width: 700px) {
     .sgo-about {
         grid-template-columns: 1fr;
         gap: 34px;
@@ -939,37 +1227,5 @@ form .button {
 
     .sgo-text p {
         font-size: 16px;
-    }
-}
-
-/* =========================================================
-   21. ACESSIBILIDADE — MOVIMENTO REDUZIDO
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    html {
-        scroll-behavior: auto;
-    }
-
-    /*
-     * Reduz apenas as animações gerais da interface.
-     *
-     * IMPORTANTE:
-     * O CHAMPIONS CORE HUD possui sua própria política
-     * de movimento e não deve ser controlado por uma
-     * regra universal do portal.
-     */
-
-    .hero-copy,
-    .page-title,
-    .access-card {
-        animation: none !important;
-    }
-
-    .access-card,
-    .module-card,
-    .button {
-        transition-duration: 0.01ms !important;
     }
 }

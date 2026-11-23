@@ -202,14 +202,33 @@
     animation: hudSweep var(--hud-sweep-speed) ease-in-out infinite 2.1s;
 }
 
+/* Descritor: legível sobre o globo.
+   1. corpo maior, peso médio e cor do texto principal;
+   2. duas linhas equilibradas, sem palavra órfã;
+   3. "zona calma": mancha escura esfumada atrás do texto, que apaga as
+      linhas do globo só ali, sem criar caixa nem borda. */
 .champions-core-hud .hud-descriptor {
+    position: relative;
     margin: 0;
-    max-width: 330px;
-    font-size: clamp(7px, 1.25vw, 10px);
-    line-height: 1.45;
-    letter-spacing: .17em;
-    color: var(--hud-muted);
+    max-width: 25em;
+    padding: .55em 1.4em .7em;
+    font-size: clamp(10px, 1.35vw, 12.5px);
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: .14em;
+    color: var(--hud-ink);
     text-transform: uppercase;
+    text-wrap: balance;
+    text-shadow: 0 0 6px var(--hud-core), 0 0 14px var(--hud-core);
+}
+
+.champions-core-hud .hud-descriptor::before {
+    content: '';
+    position: absolute;
+    inset: -6px -10px;
+    z-index: -1;
+    border-radius: 999px;
+    background: radial-gradient(closest-side, rgb(7 17 30 / .94) 55%, rgb(7 17 30 / .7) 78%, transparent);
 }
 
 /* =========================
@@ -387,9 +406,10 @@
         max-height: 112px;
     }
 
-    .hud-descriptor {
-        max-width: 260px;
-        letter-spacing: .12em;
+    .champions-core-hud .hud-descriptor {
+        max-width: 100%;
+        padding-inline: .6em;
+        letter-spacing: .08em;
     }
 }
 

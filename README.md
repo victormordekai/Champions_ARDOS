@@ -1,3 +1,18 @@
+# PORTAL CHAMPIONS ARDOS — versão online V000.2
+
+Atualização **somente estética** da versão publicada. Não muda o que o portal faz.
+
+- Mesmas três páginas: `index.html`, `cliente_ardos.html`, `dashboard.html`.
+- Mesmos destinos: formulário Google da grade, WhatsApp, telefone, e-mail, site ARDOS e a planilha de acesso do colaborador. Nenhum link, formulário ou mensagem foi alterado.
+- Sem dashboards unificados, sem Motor de FT e sem grade escrita na página.
+- `assets/css/styles.css` passou a conter a paleta documentada (origem de cada cor no topo do arquivo), o cabeçalho e o rodapé com o logo Champions e a nova interação de botões e cartões.
+- `assets/img/`: logo Champions ARDOS redesenhado, em vetor: `champions_ardos_logo.svg` (completo, usado no HUD), `champions_ardos_simbolo.svg` e `champions_ardos_nome.svg` (cabeçalho e rodapé). Ícones: `favicon.svg`, `favicon.ico`, `favicon_180.png`, `favicon_192.png`, `favicon_512.png` e `site.webmanifest`. Imagem de compartilhamento: `champions_ardos_og.png`. Os arquivos do logo anterior foram removidos.
+- HUD: pontas dos arcos reposicionadas sobre o raio de cada anel (o arco interno estava fora da órbita).
+
+O texto abaixo é o README da V001 e segue válido para a estrutura do portal.
+
+---
+
 # CHAMPIONS ARDOS — Portal de Teste V001
 
 ## 1. Visão geral
@@ -215,7 +230,7 @@ Nenhuma informação essencial deve depender exclusivamente de animação.
 │   │
 │   └── img/
 │       ├── favicon.svg
-│       └── Logo_Name_Champions_Ardos.svg
+│       └── champions_ardos_logo.svg
 │
 └── docs/
 ```
