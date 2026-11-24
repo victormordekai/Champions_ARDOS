@@ -50,11 +50,11 @@
             <header class="gp-abertura">
                 <p class="eyebrow">CHAMPIONS / CLIENTE ARDOS / GRADE DO PEDIDO</p>
                 <h1>Um pedido.<br><span>Quantas equipes precisar.</span></h1>
-                <p class="muted">Escolha as peças de cada equipe e informe tamanho, nome, número e posição de cada pessoa. Você confere tudo antes de concluir.</p>
+                <p class="muted">Escolha as peças de cada equipe e informe tamanho, nome, número e posição de cada pessoa. Você confere tudo antes de enviar para a ARDOS.</p>
                 <ol class="gp-passos" aria-label="Etapas">
                     <li><b>1</b> Identifique o pedido</li>
                     <li><b>2</b> Monte as equipes</li>
-                    <li><b>3</b> Confira e conclua</li>
+                    <li><b>3</b> Confira e envie</li>
                 </ol>
             </header>
 
@@ -70,13 +70,7 @@
                     <label class="gp-campo"><span>E-mail <i>opcional</i></span><input id="gp-contato-email" type="email" maxlength="120" autocomplete="email"></label>
                     <label class="gp-campo"><span>Telefone <i>opcional</i></span><input id="gp-contato-tel" type="tel" maxlength="24" autocomplete="tel"></label>
                 </div>
-                <div class="gp-continuar">
-                    <p><strong>Já começou antes?</strong> Abra o arquivo da grade que você salvou e continue de onde parou.</p>
-                    <button type="button" class="gp-botao" id="gp-abrir">Continuar de um arquivo</button>
-                    <input type="file" id="gp-arquivo" accept=".json,application/json" hidden>
-                    <p class="gp-status" id="gp-status-arquivo" role="status" aria-live="polite"></p>
-                </div>
-            </section>
+</section>
 
             <section class="gp-bloco" aria-labelledby="gp-t2">
                 <h2 id="gp-t2"><b class="gp-num">2</b> Monte as equipes</h2>
@@ -88,17 +82,17 @@
             <div class="gp-erros" id="gp-erros" role="alert" tabindex="-1"></div>
 
             <section class="gp-bloco gp-revisao" id="gp-revisao" hidden aria-labelledby="gp-revisao-titulo">
-                <h2 id="gp-revisao-titulo" tabindex="-1"><b class="gp-num">3</b> Confira e conclua</h2>
+                <h2 id="gp-revisao-titulo" tabindex="-1"><b class="gp-num">3</b> Confira e envie</h2>
                 <div id="gp-resumo" class="gp-resumo"></div>
                 <div id="gp-avisos" class="gp-avisos"></div>
-                <div class="gp-concluir">
-                    <button type="button" class="button" id="gp-salvar" disabled>SALVAR ARQUIVO DA GRADE <span>↓</span></button>
-                    <p class="muted">Envie o arquivo para a ARDOS pelo <a href="https://api.whatsapp.com/send?phone=5541997650283" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a> ou pelo e-mail <a href="mailto:contato@ardos.com.br">contato@ardos.com.br</a>.</p>
-                </div>
-                <div class="gp-envio-online" id="gp-envio-online" hidden>
+                <div class="gp-envio-online" id="gp-envio-online">
                     <label class="gp-consentimento"><input type="checkbox" id="gp-consentimento"> Autorizo a ARDOS a usar estes dados (nomes, números, tamanhos e contato) somente para produzir e entregar este pedido.</label>
                     <label class="gp-armadilha" aria-hidden="true">Não preencha<input id="gp-armadilha" type="text" tabindex="-1" autocomplete="off"></label>
                     <button type="button" class="button" id="gp-enviar" disabled>ENVIAR PARA A ARDOS <span>→</span></button>
+                </div>
+                <div class="gp-envio-indisponivel" id="gp-envio-indisponivel" hidden>
+                    <p><strong>O envio por esta página ainda está em implantação.</strong> Para enviar a grade agora, use o formulário oficial da ARDOS. Seus dados vão direto para a ARDOS.</p>
+                    <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLScQIORVy3O9DYpemV6kDIfDXVtl8I4Z6S21xaSJkfSIMGaTuw/viewform" target="_blank" rel="noopener noreferrer">FORMULÁRIO OFICIAL DA ARDOS <span>↗</span></a>
                 </div>
                 <p class="gp-status" id="gp-status" role="status" aria-live="polite"></p>
             </section>

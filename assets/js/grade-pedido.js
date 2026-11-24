@@ -1,9 +1,11 @@
 /**
  * CHAMPIONS ARDOS · GRADE DO PEDIDO · tela
  *
- * Monta equipes, pessoas e peças na tela; revisa; salva o arquivo da grade;
- * e, quando GRADE_CONFIG.endpoint estiver preenchido, envia ao Core_ARDOS_grade.
- * Todo texto entra por textContent/value. Nada fica guardado no navegador.
+ * Monta equipes, pessoas e peças na tela, revisa e envia ao Core_ARDOS_grade.
+ * A grade NÃO sai da governança da ARDOS: a página não gera arquivo, não
+ * copia, não exporta e não guarda nada no navegador. O único destino é o
+ * Core (GRADE_CONFIG.endpoint). Sem endpoint, encaminha ao formulário oficial.
+ * Todo texto entra por textContent/value.
  */
 (function () {
   'use strict';
@@ -175,7 +177,6 @@
 
   function esconderRevisao() {
     $('#gp-revisao').hidden = true;
-    $('#gp-salvar').disabled = true;
     var env = $('#gp-enviar'); if (env) env.disabled = true;
   }
 
@@ -209,34 +210,9 @@
     limpar(avisos);
     if (r.avisos.length) avisos.appendChild(el('ul', {}, r.avisos.slice(0, 30).map(function (e) { return el('li', { texto: e }); })));
     $('#gp-revisao').hidden = false;
-    $('#gp-salvar').disabled = false;
     var env = $('#gp-enviar'); if (env) env.disabled = !$('#gp-consentimento').checked;
     $('#gp-revisao').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     $('#gp-revisao-titulo').focus();
-  }
-
-  function salvarArquivo() {
-    var r = G.montarEnvio(estado);
-    if (r.erros.length) { revisar(); return; }
-    var url = URL.createObjectURL(new Blob([JSON.stringify(r.envio, null, 2)], { type: 'application/json;charset=utf-8' }));
-    var a = el('a', { href: url, download: 'GRADE_' + (r.envio.pedidoCode || 'SEM_CODIGO') + '.json' });
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
-    $('#gp-status').textContent = 'Arquivo salvo. Envie para a ARDOS pelo WhatsApp ou e-mail, ou use depois em "Continuar de um arquivo".';
-  }
-
-  function abrirArquivo(arquivo) {
-    if (!arquivo) return;
-    var leitor = new FileReader();
-    leitor.onload = function () {
-      try {
-        estado = G.importar(String(leitor.result));
-        escreverCabecalho();
-        desenhar();
-        $('#gp-status-arquivo').textContent = 'Grade carregada: ' + estado.equipes.length + ' equipe(s). Confira e continue.';
-      } catch (e) { $('#gp-status-arquivo').textContent = e.message; }
-    };
-    leitor.readAsText(arquivo, 'utf-8');
   }
 
   function uuid() {
@@ -269,7 +245,7 @@
         }
       })
       .catch(function () {
-        $('#gp-status').textContent = 'Sem conexão com a ARDOS agora. Salve o arquivo e tente de novo depois.';
+        $('#gp-status').textContent = 'Sem conexão com a ARDOS agora. Mantenha esta página aberta e tente de novo em instantes.';
         botao.disabled = false;
       });
   }
@@ -300,17 +276,15 @@
       desenhar('nome-' + eq.id);
     });
     $('#gp-revisar').addEventListener('click', revisar);
-    $('#gp-salvar').addEventListener('click', salvarArquivo);
-    $('#gp-abrir').addEventListener('click', function () { $('#gp-arquivo').click(); });
-    $('#gp-arquivo').addEventListener('change', function (e) { abrirArquivo(e.target.files[0]); e.target.value = ''; });
 
     var envioBloco = $('#gp-envio-online');
     if (CFG.endpoint && /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(CFG.endpoint)) {
-      envioBloco.hidden = false;
+      $('#gp-envio-indisponivel').remove();
       $('#gp-consentimento').addEventListener('change', function (e) { $('#gp-enviar').disabled = !e.target.checked || $('#gp-revisao').hidden; });
       $('#gp-enviar').addEventListener('click', enviar);
     } else {
       envioBloco.remove();
+      $('#gp-envio-indisponivel').hidden = false;
     }
     desenhar();
   }

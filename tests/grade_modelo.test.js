@@ -63,19 +63,8 @@ test('número repetido vira aviso, não erro', () => {
   assert.ok(r.avisos.some((a) => a.includes('007')));
 });
 
-test('arquivo: ida e volta preserva tudo e descarta o que não é do contrato', () => {
-  const env = G.montarEnvio(estadoExemplo()).envio;
-  const volta = G.importar(JSON.stringify(env));
-  assert.deepEqual(G.montarEnvio(volta).envio.equipes, env.equipes);
-  assert.equal(volta.equipes[1].mesmoTamanho, false);
-  const sujo = JSON.parse(JSON.stringify(env));
-  sujo.equipes[0].produtos.push('<script>');
-  sujo.equipes[0].atletas[0].tamanhos.CAMISA = 'ADULTO|XXL';
-  sujo.equipes[0].atletas[0].numero = '12345';
-  const v2 = G.importar(JSON.stringify(sujo));
-  assert.deepEqual(v2.equipes[0].produtos, ['CAMISA', 'CALCAO']);
-  assert.equal(v2.equipes[0].atletas[0].numero, '123');
-  assert.throws(() => G.importar('{"schema":"outro"}'), /não é uma grade/);
+test('o modelo não lê nem gera arquivo', () => {
+  assert.equal(G.importar, undefined);
 });
 
 test('limites', () => {

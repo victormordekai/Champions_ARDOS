@@ -27,11 +27,6 @@
 .gp select optgroup { color: var(--ink); background: var(--bg-deep); }
 .gp input::placeholder { color: var(--muted); opacity: .75; }
 
-.gp-continuar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--line); }
-.gp-continuar p { margin: 0; flex: 1 1 260px; color: var(--muted); }
-.gp-status { flex-basis: 100%; margin: 8px 0 0; color: var(--estrutura); }
-.gp-status:empty { display: none; }
-
 .gp-botao { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 16px;
   color: var(--ink); background: transparent; border: 1px solid var(--estrutura); border-radius: var(--radius-sm); cursor: pointer;
   transition: background var(--t-rapido), color var(--t-rapido); }
@@ -83,9 +78,8 @@
 .gp-res-produto { margin-top: 8px; }
 .gp-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .gp-chips em { padding: 2px 8px; font-style: normal; font-size: .85rem; border: 1px solid var(--line-strong); border-radius: 999px; }
-.gp-concluir { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 20px; }
-.gp-concluir p { margin: 0; flex: 1 1 260px; }
-.gp-concluir a, .gp-continuar a { color: var(--estrutura); text-decoration: underline; }
+.gp-envio-indisponivel { display: grid; gap: 12px; justify-items: start; margin-top: 18px; padding: 16px; background: var(--panel-2); border-left: 4px solid var(--estrutura); border-radius: var(--radius-sm); }
+.gp-envio-indisponivel p { margin: 0; }
 .gp-envio-online { display: grid; gap: 12px; margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); }
 .gp-consentimento { display: flex; gap: 10px; align-items: flex-start; }
 .gp-armadilha { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
@@ -111,3 +105,6 @@
 @media (prefers-reduced-motion: reduce) {
   .gp *, .gp-botao { transition: none !important; }
 }
+
+.gp-status { margin: 12px 0 0; color: var(--estrutura); }
+.gp-status:empty { display: none; }

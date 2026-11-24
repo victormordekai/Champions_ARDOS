@@ -3,11 +3,12 @@
  *
  * O que faz: guarda as regras da grade (produtos, tamanhos, posições, limites),
  * monta o envio no contrato champions.ardos.grade-web.v1 (o mesmo que o
- * Core_ARDOS_grade valida em grade_seguranca.gs), confere erros, resume por
- * equipe/produto/tamanho e lê um arquivo salvo para continuar.
+ * Core_ARDOS_grade valida em grade_seguranca.gs), confere erros e resume por
+ * equipe/produto/tamanho.
  *
- * O que NÃO faz: não toca na tela, não envia nada, não guarda nada no
- * navegador. Validação aqui é conforto do cliente; a que vale é a do Core.
+ * O que NÃO faz: não toca na tela, não envia nada, não gera nem lê arquivo,
+ * não guarda nada no navegador. A grade só sai da página para o Core.
+ * Validação aqui é conforto do cliente; a que vale é a do Core.
  *
  * Público (site aberto): não contém dado de cliente, pedido, planilha ou preço.
  */
@@ -177,44 +178,12 @@
     return chaves.slice().sort(function (a, b) { return ordem.indexOf(a) - ordem.indexOf(b); });
   }
 
-  // ------------------------------------------------------------ arquivo
-
-  /** Lê um arquivo salvo pela página (mesmo contrato) e devolve o estado para continuar. */
-  function importar(texto) {
-    if (typeof texto !== 'string' || texto.length > 200000) throw new Error('Arquivo ausente ou grande demais.');
-    var o;
-    try { o = JSON.parse(texto); } catch (e) { throw new Error('O arquivo não é uma grade válida.'); }
-    if (!o || o.schema !== SCHEMA || !Array.isArray(o.equipes)) throw new Error('O arquivo não é uma grade Champions ARDOS.');
-    var codigos = PRODUTOS.map(function (p) { return p.codigo; });
-    var est = estadoInicial();
-    est.pedidoCode = codigoPedido(o.pedidoCode);
-    est.modalidade = maiusculo(o.modalidade, LIMITES.modalidade);
-    var c = o.contato && typeof o.contato === 'object' ? o.contato : {};
-    est.contato = { nome: maiusculo(c.nome, LIMITES.contatoNome), email: String(c.email || '').slice(0, LIMITES.email), telefone: String(c.telefone || '').replace(/[^0-9+() -]/g, '').slice(0, LIMITES.telefone) };
-    est.equipes = o.equipes.slice(0, LIMITES.equipes).map(function (eq) {
-      eq = eq && typeof eq === 'object' ? eq : {};
-      var produtos = (Array.isArray(eq.produtos) ? eq.produtos : []).filter(function (p, i, l) { return codigos.indexOf(p) >= 0 && l.indexOf(p) === i; }).slice(0, LIMITES.produtosEquipe);
-      var atletas = (Array.isArray(eq.atletas) ? eq.atletas : []).slice(0, LIMITES.atletasEquipe).map(function (a) {
-        a = a && typeof a === 'object' ? a : {};
-        var tam = {};
-        produtos.forEach(function (p) { var v = a.tamanhos && a.tamanhos[p]; if (tamanhoValido(v)) tam[p] = v; });
-        var valores = produtos.map(function (p) { return tam[p] || ''; });
-        var unico = valores.length && valores.every(function (v) { return v === valores[0]; }) ? valores[0] : '';
-        return { nome: maiusculo(a.nome, LIMITES.nome), numero: numero(a.numero), posicao: a.posicao, cor: maiusculo(a.cor, LIMITES.cor), tamanhos: tam, tamanhoUnico: unico, _todosIguais: !!unico || !valores.some(Boolean) };
-      });
-      var mesmo = atletas.every(function (a) { return a._todosIguais; });
-      return novaEquipe({ nome: maiusculo(eq.nome, LIMITES.equipe), produtos: produtos, mesmoTamanho: mesmo, atletas: atletas.length ? atletas : [{}] });
-    });
-    if (!est.equipes.length) est.equipes = [novaEquipe()];
-    return est;
-  }
-
   var api = {
     SCHEMA: SCHEMA, VERSAO: VERSAO, TAMANHOS_ADULTO: TAMANHOS_ADULTO, TAMANHOS_INFANTIL: TAMANHOS_INFANTIL,
     POSICOES: POSICOES, PRODUTOS: PRODUTOS, LIMITES: LIMITES,
     rotuloProduto: rotuloProduto, rotuloTamanho: rotuloTamanho, tamanhoValido: tamanhoValido, maiusculo: maiusculo,
     codigoPedido: codigoPedido, numero: numero, novaEquipe: novaEquipe, novoAtleta: novoAtleta, estadoInicial: estadoInicial,
-    tamanhosDoAtleta: tamanhosDoAtleta, montarEnvio: montarEnvio, resumo: resumo, ordenarTamanhos: ordenarTamanhos, importar: importar
+    tamanhosDoAtleta: tamanhosDoAtleta, montarEnvio: montarEnvio, resumo: resumo, ordenarTamanhos: ordenarTamanhos
   };
   raiz.GradeModelo = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
