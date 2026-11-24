@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://script.google.com https://script.googleusercontent.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+        <meta name="description" content="Champions ARDOS: monte a grade do seu pedido com equipes, pessoas, tamanhos e personalização.">
+        <meta name="theme-color" content="#07111e">
+        <title>Grade do pedido | Portal Champions ARDOS</title>
+        <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="assets/img/favicon_180.png">
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="stylesheet" href="assets/css/styles.css">
+        <link rel="stylesheet" href="assets/css/grade-pedido.css">
+        <script src="assets/js/grade-config.js" defer></script>
+        <script src="assets/js/grade-pedido-modelo.js" defer></script>
+        <script src="assets/js/grade-pedido.js" defer></script>
+    </head>
+
+    <body>
+        <a class="skip" href="#conteudo">Pular para conteúdo</a>
+
+        <header class="header">
+
+        <a
+            class="brand"
+            href="index.html"
+            aria-label="Portal Champions ARDOS, início"
+        >
+            <img class="brand-simbolo" src="assets/img/champions_ardos_simbolo.svg" alt="" width="160" height="160">
+            <img class="brand-nome" src="assets/img/champions_ardos_nome.svg" alt="Champions ARDOS" width="1583" height="515">
+        </a>
+
+        <nav aria-label="Navegação principal">
+            <a href="index.html">Início</a>
+            <a href="cliente_ardos.html">Cliente</a>
+            <a href="dashboard.html">Colaborador</a>
+            <a href="https://www.ardos.com.br/">Site ARDOS ↗</a>
+        </nav>
+
+        <span class="header-ardos">
+            <img src="assets/img/ardos_logo_vector_final.svg" alt="ARDOS">
+            SPORTSWEAR
+        </span>
+
+    </header>
+
+        <main id="conteudo" class="gp shell">
+            <header class="gp-abertura">
+                <p class="eyebrow">CHAMPIONS / CLIENTE ARDOS / GRADE DO PEDIDO</p>
+                <h1>Um pedido.<br><span>Quantas equipes precisar.</span></h1>
+                <p class="muted">Escolha as peças de cada equipe e informe tamanho, nome, número e posição de cada pessoa. Você confere tudo antes de concluir.</p>
+                <ol class="gp-passos" aria-label="Etapas">
+                    <li><b>1</b> Identifique o pedido</li>
+                    <li><b>2</b> Monte as equipes</li>
+                    <li><b>3</b> Confira e conclua</li>
+                </ol>
+            </header>
+
+            <section class="gp-bloco" aria-labelledby="gp-t1">
+                <h2 id="gp-t1"><b class="gp-num">1</b> Identifique o pedido</h2>
+                <div class="gp-campos">
+                    <label class="gp-campo gp-campo--chave"><span>Código do pedido</span>
+                        <input id="gp-codigo" type="text" maxlength="50" autocomplete="off" spellcheck="false" placeholder="EX.: 3422" aria-describedby="gp-dica-codigo">
+                        <small id="gp-dica-codigo">É o código que a ARDOS enviou para você.</small>
+                    </label>
+                    <label class="gp-campo"><span>Modalidade <i>opcional</i></span><input id="gp-modalidade" type="text" maxlength="70" placeholder="FUTEBOL, VÔLEI…"></label>
+                    <label class="gp-campo"><span>Responsável <i>opcional</i></span><input id="gp-contato-nome" type="text" maxlength="90" autocomplete="name"></label>
+                    <label class="gp-campo"><span>E-mail <i>opcional</i></span><input id="gp-contato-email" type="email" maxlength="120" autocomplete="email"></label>
+                    <label class="gp-campo"><span>Telefone <i>opcional</i></span><input id="gp-contato-tel" type="tel" maxlength="24" autocomplete="tel"></label>
+                </div>
+                <div class="gp-continuar">
+                    <p><strong>Já começou antes?</strong> Abra o arquivo da grade que você salvou e continue de onde parou.</p>
+                    <button type="button" class="gp-botao" id="gp-abrir">Continuar de um arquivo</button>
+                    <input type="file" id="gp-arquivo" accept=".json,application/json" hidden>
+                    <p class="gp-status" id="gp-status-arquivo" role="status" aria-live="polite"></p>
+                </div>
+            </section>
+
+            <section class="gp-bloco" aria-labelledby="gp-t2">
+                <h2 id="gp-t2"><b class="gp-num">2</b> Monte as equipes</h2>
+                <p class="muted">Cada equipe escolhe as próprias peças. Torcida, comissão técnica e árbitro entram como pessoas, com a posição certa.</p>
+                <div id="gp-equipes"></div>
+                <button type="button" class="gp-botao gp-botao--tracejado" id="gp-add-equipe">＋ Adicionar outra equipe</button>
+            </section>
+
+            <div class="gp-erros" id="gp-erros" role="alert" tabindex="-1"></div>
+
+            <section class="gp-bloco gp-revisao" id="gp-revisao" hidden aria-labelledby="gp-revisao-titulo">
+                <h2 id="gp-revisao-titulo" tabindex="-1"><b class="gp-num">3</b> Confira e conclua</h2>
+                <div id="gp-resumo" class="gp-resumo"></div>
+                <div id="gp-avisos" class="gp-avisos"></div>
+                <div class="gp-concluir">
+                    <button type="button" class="button" id="gp-salvar" disabled>SALVAR ARQUIVO DA GRADE <span>↓</span></button>
+                    <p class="muted">Envie o arquivo para a ARDOS pelo <a href="https://api.whatsapp.com/send?phone=5541997650283" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a> ou pelo e-mail <a href="mailto:contato@ardos.com.br">contato@ardos.com.br</a>.</p>
+                </div>
+                <div class="gp-envio-online" id="gp-envio-online" hidden>
+                    <label class="gp-consentimento"><input type="checkbox" id="gp-consentimento"> Autorizo a ARDOS a usar estes dados (nomes, números, tamanhos e contato) somente para produzir e entregar este pedido.</label>
+                    <label class="gp-armadilha" aria-hidden="true">Não preencha<input id="gp-armadilha" type="text" tabindex="-1" autocomplete="off"></label>
+                    <button type="button" class="button" id="gp-enviar" disabled>ENVIAR PARA A ARDOS <span>→</span></button>
+                </div>
+                <p class="gp-status" id="gp-status" role="status" aria-live="polite"></p>
+            </section>
+
+            <div class="gp-barra" role="group" aria-label="Resumo e conclusão">
+                <span id="gp-total">0 equipe(s)</span>
+                <button type="button" class="button" id="gp-revisar">CONFERIR GRADE <span>→</span></button>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-top">
+
+                <!-- Identidade institucional -->
+                <div>
+                    <a class="brand" href="index.html" aria-label="Portal Champions ARDOS, início">
+                    <img class="brand-simbolo" src="assets/img/champions_ardos_simbolo.svg" alt="" width="160" height="160">
+                    <img class="brand-nome" src="assets/img/champions_ardos_nome.svg" alt="Champions ARDOS" width="1583" height="515">
+                </a>
+
+                <p class="footer-assinatura">
+                    Vestimos Identidades.<br>
+                    <span>Entregamos Confiança.</span>
+                </p>
+                </div>
+
+                <!-- Canais de contato -->
+                <div>
+                    <h2>FALE COM A ARDOS</h2>
+
+                    <a
+                        href="https://api.whatsapp.com/send?phone=5541997650283"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        (41) 99765-0283 ↗
+                    </a>
+
+                    <a href="tel:+554133498356">
+                        (41) 3349-8356
+                    </a>
+
+                    <a href="mailto:contato@ardos.com.br">
+                        contato@ardos.com.br
+                    </a>
+                </div>
+
+                <!-- Endereço institucional -->
+                <div>
+                    <h2>ENCONTRE-NOS</h2>
+
+                    <p>
+                        Rua Alagoas, 3340 · Portão<br>
+                        Curitiba — PR<br>
+                        CEP 80610-200
+                    </p>
+                </div>
+
+                <!-- Oportunidades e acesso ao site -->
+                <div>
+                    <h2>FAÇA PARTE</h2>
+
+                    <a
+                        href="mailto:contato@ardos.com.br?subject=Trabalhe%20conosco%20%E2%80%94%20ARDOS"
+                    >
+                        Trabalhe conosco ↗
+                    </a>
+
+                    <a href="https://www.ardos.com.br/">
+                        Visite o site ARDOS ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Assinatura institucional e princípios operacionais -->
+            <div class="footer-bottom">
+                <span>© 2026 ARDOS SPORTSWEAR · PORTAL CHAMPIONS ARDOS V000.2</span>
+
+                <span>
+                    CONTROLE · CONFIABILIDADE · RASTREABILIDADE
+                </span>
+            </div>
+        </footer>
+
+    </body>
+</html>
