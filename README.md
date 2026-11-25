@@ -1,3 +1,15 @@
+# Grade do pedido online (24/11/2026)
+
+- `grade_pedido.html`: o cliente monta **várias equipes**, cada uma com **várias pessoas** e **as peças que escolher** (camisa MC/ML, regata, camiseta, polo, segunda pele, calção, bermuda, calça, legging, corta-vento, jaqueta, moletom, colete). Posições: LINHA, GOLEIRO, **TORCIDA**, COMISSÃO TÉCNICA, ÁRBITRO, OUTRO.
+- Tamanho único por pessoa ou um tamanho por peça. Revisão com contagem por equipe, peça e tamanho antes de concluir.
+- **A grade não sai da governança da ARDOS.** A página não gera arquivo, não exporta, não copia e não guarda nada no navegador. O único destino é o Core_ARDOS_grade, com autorização LGPD marcada pelo cliente.
+- Enquanto o Core não estiver no ar (`assets/js/grade-config.js` com `endpoint` vazio), a revisão encaminha para o formulário oficial da ARDOS.
+- Este site público é **provisório**, até as fronteiras de acesso estarem fechadas. O Motor de FT fica só no repositório privado.
+- Testes: `node --test tests/grade_modelo.test.js` (7) e `python3 tests/teste_grade_navegador.py` (36 verificações em Chrome, 1280 e 390 px, incluindo envio simulado ao Core).
+- `cliente_ardos.html` ganhou o botão **MONTE A GRADE AQUI**. O formulário Google continua.
+
+---
+
 # PORTAL CHAMPIONS ARDOS — versão online V000.2
 
 Atualização **somente estética** da versão publicada. Não muda o que o portal faz.
