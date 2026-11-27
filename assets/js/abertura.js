@@ -1,4 +1,4 @@
-/* ABERTURA — Loja ARDOS (teste no Champions ARDOS)
+/* ABERTURA — Champions ARDOS (teste)
  * Mesmo mecanismo da Loja Everest × ARDOS.
  * Roda no <head> (sem defer) para marcar a página antes da primeira pintura e evitar piscar.
  * Acontece a cada carregamento da página inicial. Não aparece com "reduzir movimento".
