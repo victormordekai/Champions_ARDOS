@@ -197,6 +197,11 @@
         href="assets/css/champions-core-hud.css"
     >
 
+    <link
+        rel="stylesheet"
+        href="assets/css/abertura.css"
+    >
+
     <!-- ========================================
          JAVASCRIPT
     ========================================= -->
@@ -211,9 +216,30 @@
         defer
     ></script>
 
+    <!-- Abertura (cortina): sem defer, para marcar a página antes da primeira pintura -->
+    <script src="assets/js/abertura.js"></script>
+
 </head>
 
 <body>
+    <!-- Abertura Loja ARDOS (teste): cortina navy → magenta, animação ciano, sem logo -->
+    <div class="abertura" aria-hidden="true">
+        <div class="abertura__capa">
+            <div class="abertura__palco">
+                <span class="abertura__pulso"></span>
+                <svg class="abertura__aneis" viewBox="0 0 120 120" focusable="false">
+                    <circle class="abertura__anel-externo" cx="60" cy="60" r="56" pathLength="1"/>
+                    <circle class="abertura__arco" cx="60" cy="60" r="62" pathLength="1"/>
+                    <circle class="abertura__anel-interno" cx="60" cy="60" r="44" pathLength="1"/>
+                </svg>
+                <span class="abertura__mira"><i></i><i></i><i></i><i></i></span>
+                <!-- Espaço reservado para o HUD -->
+                <div class="abertura__hud"></div>
+            </div>
+            <p class="abertura__texto">Loja <span>ARDOS</span></p>
+        </div>
+    </div>
+
     <!-- Acessibilidade: pular para o conteúdo principal -->
     <a class="skip" href="#conteudo">
         Pular para conteúdo
