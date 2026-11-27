@@ -222,7 +222,7 @@
 </head>
 
 <body>
-    <!-- Abertura Loja ARDOS (teste): cortina navy → magenta, animação ciano, sem logo -->
+    <!-- Abertura Loja ARDOS (teste): cortina navy → magenta, animação ciano, bola (ball.svg) voando no centro -->
     <div class="abertura" aria-hidden="true">
         <div class="abertura__capa">
             <div class="abertura__palco">
@@ -233,8 +233,14 @@
                     <circle class="abertura__anel-interno" cx="60" cy="60" r="44" pathLength="1"/>
                 </svg>
                 <span class="abertura__mira"><i></i><i></i><i></i><i></i></span>
-                <!-- Espaço reservado para o HUD -->
-                <div class="abertura__hud"></div>
+                <!-- Centro: bola voando (ball.svg, só recolorida em --cyan), gira e pulsa no ritmo dos anéis -->
+                <div class="abertura__hud">
+                    <span class="abertura__bola">
+                        <span class="abertura__bola-pulso">
+                            <img class="abertura__bola-giro" src="assets/img/ball_ciano.svg" alt="" width="1254" height="1254" decoding="async">
+                        </span>
+                    </span>
+                </div>
             </div>
             <p class="abertura__texto">Loja <span>ARDOS</span></p>
         </div>

@@ -11,8 +11,9 @@
      capa (principal) ...... --ardos-navy        #0d152b [ARQUIVO]
      camada acessória ...... --logo-magenta-deep #ba0064 [ARQUIVO]
      animação (ciano) ...... --logo-cyan / --cyan
-   Sem logo: o centro fica livre. O HUD que vai rodar sobre a
-   abertura entra em .abertura__hud (vazio por enquanto).
+   Sem logo. No centro, a bola de assets/img/ball_ciano.svg (ball.svg
+   original, só recolorida em --cyan) chega "voando": gira sem parar
+   e pulsa junto com o pulso ciano dos anéis.
    ========================================================= */
 
 .abertura {
@@ -183,7 +184,7 @@ html.com-abertura body {
 .abertura__mira i:nth-child(3) { left: 0; }
 .abertura__mira i:nth-child(4) { right: 0; }
 
-/* Espaço reservado para o HUD (vazio nesta versão) */
+/* Centro: bola voando */
 .abertura__hud {
     position: relative;
     z-index: 2;
@@ -191,6 +192,33 @@ html.com-abertura body {
     aspect-ratio: 1;
     display: grid;
     place-items: center;
+}
+
+/* Bola: três camadas para somar movimentos sem conflito de transform
+   - .abertura__bola ........ chegada (vem de longe, girando, e acende)
+   - .abertura__bola-pulso .. batida dupla, no mesmo tempo do pulso dos anéis (1,2 s a partir de 0,45 s, 2x)
+   - .abertura__bola-giro ... giro contínuo, como bola em voo */
+.abertura__bola {
+    display: block;
+    width: 88%;
+    aspect-ratio: 1;
+    opacity: 0;
+    animation: abertura-bola-chega .75s .15s var(--ab-curva) forwards;
+}
+
+.abertura__bola-pulso {
+    display: block;
+    width: 100%;
+    height: 100%;
+    animation: abertura-bola-pulso 1.2s .45s ease-in-out 2;
+}
+
+.abertura__bola-giro {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 6px rgba(7, 221, 244, .55));
+    animation: abertura-gira .9s .15s linear infinite;
 }
 
 /* Legenda (texto simples, sem logo) */
@@ -238,6 +266,18 @@ html.com-abertura body {
 @keyframes abertura-mira {
     from { opacity: 0; transform: scale(.2); }
     to   { opacity: .85; transform: none; }
+}
+@keyframes abertura-bola-chega {
+    0%   { opacity: 0; transform: scale(.15) rotate(-200deg); }
+    60%  { opacity: 1; }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+@keyframes abertura-bola-pulso {
+    0%, 100% { transform: scale(1); }
+    14%      { transform: scale(1.12); }
+    28%      { transform: scale(.97); }
+    42%      { transform: scale(1.07); }
+    60%      { transform: scale(1); }
 }
 @keyframes abertura-texto {
     from { opacity: 0; transform: translateY(10px); letter-spacing: .6em; }
